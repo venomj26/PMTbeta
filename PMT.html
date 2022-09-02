@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang='en' dir='ltr'>
+  <head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Patching Manager Tool</title>
+    <!-- <title>Sidebar menu With Sub-menus | Using HTML, CSS & JQuery</title> -->
+    <link rel='stylesheet' href='style.css'>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css'>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js' charset='utf-8'></script>
+    <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
+    <!-- <script src="https://code.highcharts.com/highcharts.js"></script> -->
+    <script src="/ptm/lib/Highcharts-10.0.0/code/highcharts.js"></script>
+
+    <script src="https://code.highcharts.com/modules/histogram-bellcurve.js"></script> 
+
+    <!-- <script data-main = 'scripts/main' src = 'scripts/require.js'></script> -->
+    <!-- <script src='scripts/maps.js'></script> -->
+    <script type='text/javascript' src='map.js'></script>
+    <script type='text/javascript' src='init.js'></script>
+    <script type='text/javascript' src='navbar_Ex.js'></script>
+   
+
+    <script type='text/javascript' src='chart.js'></script>
+    <script async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAwns33HA__CMj0Akz3bB3uVW7GfRVlZpk&libraries=places&callback=init'>
+    </script>
+
+
+    
+
+  </head>
+  <body>
+    <h1 style="text-align:right;">Patching Manager Tool</h1>
+    
+    <hr>
+    <!-- <div id="map"></div> -->
+    <div id="map_canvas"></div>
+    <div id="container-right"></div>
+    <div id="container-left"></div>
+
+    
+    <div class='menu-btn'>
+      <i class='fas fa-bars'></i>
+    </div>
+    <div class='side-bar'>
+      <div class='close-btn'>
+        <i class='fas fa-times'></i>
+      </div>
+      <div class='menu'>
+        <div class='item'>
+          <a class='sub-btn'><i class='fas fa-road'></i>Patching Suggestion<i class='fas fa-angle-right dropdown'></i></a>
+          <div class='sub-menu'>
+            <a href='#' class='InterState' id='interState'>Interstate</a>
+            <a href='#' class='State' id='stateRoad'>State</a>
+            <a href='#' class='usH'  id='usH'>US-H</a>
+          </div>
+        </div>
+        
+        <!-- <div class='item'>
+          <a class='sub-btn'><i class='fas fa-ruler-combined'></i> Sensor Data Evaluatioin <i class='fas fa-angle-right dropdown'></i></a>
+          <div class='sub-menu'>
+            <a href='#' class='InterState-IRI'>InterState-3DLaserImaging</a>
+            <a href='#' class='InterState-FWD'>InterState-FWD</a>
+            <a href='#' class='InterState-TSD'>InterState-TSD</a>
+            <a href='#' class='State-IRI'>State-3DLaserImaging</a>
+            <a href='#' class='State-FWD'>State-FWD</a>
+            <a href='#' class='USH-IRI'>USH-3DLaserImaging</a>
+            <a href='#' class='USH-FWD'>USH-FWD</a>
+
+          </div> -->
+          <div class='item'>
+            <a class='sub-btn'><i class='fas fa-ruler-combined'></i> Sensor Data Evaluatioin <i class='fas fa-angle-right dropdown'></i></a>
+            <div class='sub-menu'>
+              <a class='sub-sub-btn'>InterState-3DLaserImaging <i class='fas fa-angle-right dropdown'></i></a>
+            
+                <div class='sub-sub-menu'>
+                  <ul>
+                    <a href="#" class="IS-LIRI">left-IRI</a>
+                    <a href="#" class="IS-RIRI">right-IRI</a>
+                    <a href="#" class="IS-CD">Crack Density</a>
+                  </ul>
+                    
+                </div>
+              
+              
+            <a  class='sub-sub-btn'>InterState-FWD <i class='fas fa-angle-right dropdown'></i></a>
+            <div class='sub-sub-menu'>
+              <ul>
+                <a href="#" class="D0">Center Deflection</a>
+                <a href="#" class="SCI">Surface Curvature Index</a>
+                <a href="#" class="BCI">Base Curvature Index</a>
+                <a href="#" class="BDI">Base Damage Index</a>
+                <a href="#" class="D48">Subgrade Deflection</a>
+                <a href="#" class="AUPP">AUPP</a>
+              </ul>
+              
+            </div>
+            <a href='#' class='InterState-TSD'>InterState-TSD</a>
+            <a class='sub-sub-btn'>State-3DLaserImaging <i class='fas fa-angle-right dropdown'></i></a>
+            <div class='sub-sub-menu'>
+              <ul>
+                <a href="#" class="LIRI">left-IRI</a>
+                <a href="#" class="RIRI">right-IRI</a>
+                <a href="#" class="CD">Crack Density</a>
+              </ul>
+              
+            </div>
+            <a class='sub-sub-btn'>State-FWD <i class='fas fa-angle-right dropdown'></i></a>
+            <div class='sub-sub-menu'>
+              <ul>
+                <a href="#" class="D0">Center Deflection</a>
+                <a href="#" class="SCI">Surface Curvature Index</a>
+                <a href="#" class="BCI">Base Curvature Index</a>
+                <a href="#" class="BDI">Base Damage Index</a>
+                <a href="#" class="D48">Subgrade Deflection</a>
+                <a href="#" class="AUPP">AUPP</a>
+              </ul>
+              
+            </div>
+            <a class='sub-sub-btn'>USH-3DLaserImaging <i class='fas fa-angle-right dropdown'></i></a>
+            <div class='sub-sub-menu'>
+              <ul>
+                <a href="#" class="LIRI">left-IRI</a>
+                <a href="#" class="RIRI">right-IRI</a>
+                <a href="#" class="CD">Crack Density</a>
+
+              </ul>
+              
+            </div>
+            <a class='sub-sub-btn'>USH-FWD <i class='fas fa-angle-right dropdown'></i></a>
+            <div class='sub-sub-menu'>
+              <ul>
+                <a href="#" class="D0">Center Deflection</a>
+                <a href="#" class="SCI">Surface Curvature Index</a>
+                <a href="#" class="BCI">Base Curvature Index</a>
+                <a href="#" class="BDI">Base Damage Index</a>
+                <a href="#" class="D48">Subgrade Deflection</a>
+                <a href="#" class="AUPP">AUPP</a>
+              </ul>
+              
+            </div>
+          
+          </div>
+
+      </div>
+        <div class='item'>
+          <a class='sub-btn'><i class='fas fa-cog'></i> Adapatable Threshold Settings<i class='fas fa-angle-right dropdown'></i></a>
+          <div class='sub-menu'>
+            <a href='#' class='IsTh' id='IsTh'>Interstate</a>
+            <a href='#' class='SrTh' id='SrTh'>State</a>
+            <a href='#' class='ushTh'  id='ushTh'>US-H</a>
+          </div>
+        </div>
+      </div> 
+    </div>
+    <!-- <div id="overlayForm" class="overlay" style = "display:none"> -->
+      <form id="threshold" action="navbar_Ex.js" method="POST">
+        <h3>User Input Threshold Values</h3>
+        <section class="filename">
+          <label for="filename">Filename</label>
+          <input type="text" name="filename" id="filename">
+        </section>
+        <hr>
+
+        <section class="parameters">
+          <label for="threshold-iri">International Roughness Index(in/mi)</label>
+          <br>
+          <!-- <input type="range" name="threshold" id="threshold" value="330" min="1" max="550"> -->
+            <label for="iri-min"> min:</label>
+            <input type="range" name="iri-min" id="iri-min" value="70" min="0" max="500" oninput="this.nextElementSibling.value = this.value">
+            <output>70</output>
+            <label for="iri-max"> max:</label>
+            <input type="range" name="iri-max" id="iri-max" value="330" min="0" max="500" oninput="this.nextElementSibling.value = this.value">
+            <output>330</output>
+        </section>
+        <hr>
+        <section class="parameters">
+            <label for="threshold-cd">Crack Density(%)</label>
+            <br>
+            <!-- <input type="range" name="threshold" id="threshold" value="330" min="1" max="550"> -->
+            <label for="cd-min"> min:</label>
+            <input type="range" name="cd-min" id="cd-min" value="4" min="0" max="30" oninput="this.nextElementSibling.value = this.value">
+            <output>4</output>
+            <label for="cd-max"> max:</label>
+            <input type="range" name="cd-max" id="cd-max" value="20" min="0" max="30" oninput="this.nextElementSibling.value = this.value">
+            <output>20</output>
+        </section>
+        <hr>
+        <section class="parameters">
+            <label for="fwdParams">Falling Weight Deflectometer Parameters (milli-Inches)</label>
+            <br>
+
+            <label for="sd-fwd">Surface deflection</label>
+            <!-- <input type="range" name="threshold" id="threshold" value="330" min="1" max="550"> -->
+            <label for="sd-min"> min:</label>
+            <input type="range" name="sd-min" id="sd-min" value="4" min="0" max="30" oninput="this.nextElementSibling.value = this.value">
+            <output>4</output>
+            <label for="sd-max"> max:</label>
+            <input type="range" name="sd-max" id="sd-max" value="20" min="0" max="30" oninput="this.nextElementSibling.value = this.value">
+            <output>20</output>
+            <br>
+            <hr>
+            <label for="sgd-fwd">Subgrade deflection</label>
+            <!-- <input type="range" name="threshold" id="threshold" value="330" min="1" max="550"> -->
+            <label for="sgd-min"> min:</label>
+            <input type="range" name="sgd-min" id="sgd-min" value="4" min="0" max="30" oninput="this.nextElementSibling.value = this.value">
+            <output>4</output>
+            <label for="sgd-max"> max:</label>
+            <input type="range" name="sgd-max" id="sgd-max" value="20" min="0" max="30" oninput="this.nextElementSibling.value = this.value">
+            <output>20</output>
+            <br>
+            <hr>
+            <label for="sciFwd">SCI</label>
+            <!-- <input type="range" name="threshold" id="threshold" value="330" min="1" max="550"> -->
+            <label for="sciMin"> min:</label>
+            <input type="range" name="sciMin" id="sciMin" value="4" min="0" max="50" oninput="this.nextElementSibling.value = this.value">
+            <output>4</output>
+            <label for="sciMax"> max:</label>
+            <input type="range" name="sciMax" id="sciMax" value="20" min="0" max="50" oninput="this.nextElementSibling.value = this.value">
+            <output>20</output>
+            <br>
+            <hr>
+            <label for="bdiFwd">BDI</label>
+            <!-- <input type="range" name="threshold" id="threshold" value="330" min="1" max="550"> -->
+            <label for="bdiMin"> min:</label>
+            <input type="range" name="bdiMin" id="bdiMin" value="4" min="0" max="50" oninput="this.nextElementSibling.value = this.value">
+            <output>4</output>
+            <label for="bdiMax"> max:</label>
+            <input type="range" name="bdiMax" id="bdiMax" value="20" min="0" max="50" oninput="this.nextElementSibling.value = this.value">
+            <output>20</output>
+            <br>
+            <hr>
+            <label for="bciFwd">BCI</label>
+            <!-- <input type="range" name="threshold" id="threshold" value="330" min="1" max="550"> -->
+            <label for="bciMin"> min:</label>
+            <input type="range" name="bciMin" id="bciMin" value="4" min="0" max="50" oninput="this.nextElementSibling.value = this.value">
+            <output>4</output>
+            <label for="bciMax"> max:</label>
+            <input type="range" name="bciMax" id="bciMax" value="20" min="0" max="50" oninput="this.nextElementSibling.value = this.value">
+            <output>20</output>
+        </section>
+        <hr>
+
+        <input type="submit" value="Submit" name="submit" class="submit" id="submit" />
+
+      </form>
+
+      <!-- <div id="roadMarkerLegend"><h3>Legend</h3></div> -->
+
+      <!-- <div id="output"></div> -->
+    <!-- <figure class="highcharts-container">
+      <div id="container-left"></div>
+    </figure>
+    <figure class="highcharts-container">
+      <div id="container-right"></div>
+    </figure> -->
+    <!-- </div> -->
+
+    <!-- <script src="/lib/Highcharts-9.3.3/code/highcharts.js"></script> -->
+    <script src="/ptm/lib/Highcharts-10.0.0/code/modules/data.js"></script>
+    <script src="/ptm/lib/Highcharts-10.0.0/code/modules/series-label.js"></script>
+    <script src="/ptm/lib/Highcharts-10.0.0/code/modules/export-data.js"></script>
+    <script src="/ptm/lib/Highcharts-10.0.0/code/modules/exporting.js"></script>
+    <script src="/ptm/lib/Highcharts-10.0.0/code/modules/accessibility.js"></script>
+    <script src="/ptm/lib/Highcharts-10.0.0/code/modules/histogram-bellcurve.js"></script>
+
+
+    <!-- <script type='text/javascript' src='color_icons.js'></script> -->
+    <!-- <script type='text/javascript' src='navbar_Ex_cluster.js'></script> -->
+    
+
+
+
+    <!-- <script>
+
+    const isData= chartUtils.loadJSON("/SampledRoadSchooldemoPatchingI69.json");
+    const sRData= chartUtils.loadJSON("/SampledRoadSchooldemoPatchingSR327image.json");
+    const ushData= chartUtils.loadJSON("/SampledRoadSchooldemoPatchingUS421.json");
+
+    // let features=isData.features;
+    var liri = isData.features.map(function (el) {
+        return el.properties.L_IRI;
+    });
+    var riri = isData.features.map(function (el) {
+        return el.properties.R_IRI;
+    });
+    var D0 = isData.features.map(function (el) {
+        return el.properties.D0;
+    });
+    var D48 = isData.features.map(function (el) {
+        return el.properties.D48;
+    });
+    var DMI = isData.features.map(function (el) {
+        var dmiS = "" + el.properties.DMI;
+        return dmiS;
+    });
+    var Index = isData.features.map(function (el) {
+        return el.properties.index;
+        
+    });
+    console.log(DMI);
+
+    const chart1 = chartUtils.makeChart('container-left', liri);
+      const chart2 = chartUtils.makeChart('container-right');
+      
+    
+      chart1.onClick(function() { console.log("Chart 1 clicked");});
+
+    </script> -->
+    
+  </body>
+</html>
