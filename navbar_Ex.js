@@ -101,16 +101,16 @@ function initMap(road) {
 
   const apiKey = 'AIzaSyAwns33HA__CMj0Akz3bB3uVW7GfRVlZpk';
   const infoWindow = new google.maps.InfoWindow();
-  const script = document.createElement("script");
+  // const script = document.createElement("script");
   map=MapBase.obj;
-  script.src =
-  // "https://developers.google.com/maps/documentation/javascript/examples/json/earthquake_GeoJSONP.js";
-  "http://artsy.ecn.purdue.edu:40080/PatchingTables/SampledRoadSchooldemoPatchingI64.json";
-  document.getElementsByTagName("head")[0].appendChild(script);
+  // script.src =
+  // // "https://developers.google.com/maps/documentation/javascript/examples/json/earthquake_GeoJSONP.js";
+  // "http://artsy.ecn.purdue.edu:40080/PatchingTables/SampledRoadSchooldemoPatchingI64.json";
+  // document.getElementsByTagName("head")[0].appendChild(script);
 
-  var isData = loadJSON("/SampledRoadSchooldemoPatchingI64.json");
-  // var isData = loadJSON("http://artsy.ecn.purdue.edu:40080/PatchingTables/SampledRoadSchooldemoPatchingI64.json");
-
+  // var isData = loadJSON("/SampledRoadSchooldemoPatchingI64.json");
+  var isData = loadJSON("http://artsy.ecn.purdue.edu:40080/PatchingTables/SampledRoadSchooldemoPatchingI64.json");
+  console.log("I am in the graph")
   var srData = loadJSON("/SampledRoadSchooldemoPatchingSR327image.json");
   var usData = loadJSON('/SampledRoadSchooldemoPatchingUS421.json');
 

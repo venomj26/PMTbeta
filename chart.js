@@ -55,12 +55,12 @@ function loadJSON(data) {
 
 
 // var Data=await fetchAsync("http://artsy.ecn.purdue.edu:40080/PatchingTables/PatchTable_I-69_NB_DL_300.74-307.16.csv")
-console.log("I am here");
+// console.log("I am here");
 
-var isData= loadJSON("/SampledRoadSchooldemoPatchingI64.json");
+var isData= loadJSON("http://artsy.ecn.purdue.edu:8003/PatchingTables/PatchTable_I-69_NB_DL_300.74-307.16.json");
 
 // var data=loadJSONserver("http://artsy.ecn.purdue.edu:40080/PatchingTables/PatchTable_I-69_NB_DL_300.74-307.16.csv")
-// console.log(isData);
+console.log(isData);
 let features=isData.features;
 var liri = isData.features.map(function (el) {
     return el.properties.L_IRI;
