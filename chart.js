@@ -13,54 +13,9 @@ function loadJSON(data) {
   }
 
   
-
-// function loadJSONserver(url) {
-// var json = null;
-// $.ajax({
-//     url: url,
-//     dataType: "json",
-//     data: data,
-//     success: function (data) {
-//         json = data;
-//     }
-// });
-// return json;
-// }
-
-// function httpGet(theUrl)
-// {
-//     var xmlHttp = new XMLHttpRequest();
-//     xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
-//     xmlHttp.send( null );
-//     return xmlHttp.responseText;
-// }
-
-// async function fetchAsync (url) {
-//     console.log("I am in fetch async");
-
-//     let response = await fetch(url);
-//     let data = await response.json();
-//     return data;
-//   }
-
-// async parseFile(url) {
-//     try {
-//       const fetchResponse = await fetch(url);
-//       console.log(fetchResponse.text());
-//     } catch (ex) {
-//       console.log("Error in fetch");
-//     }
-//  }
-
-
-
-// var Data=await fetchAsync("http://artsy.ecn.purdue.edu:40080/PatchingTables/PatchTable_I-69_NB_DL_300.74-307.16.csv")
-// console.log("I am here");
-
 var isData= loadJSON("http://artsy.ecn.purdue.edu:8003/PatchingTables/PatchTable_I-69_NB_DL_300.74-307.16.json");
 
-// var data=loadJSONserver("http://artsy.ecn.purdue.edu:40080/PatchingTables/PatchTable_I-69_NB_DL_300.74-307.16.csv")
-console.log(isData);
+
 let features=isData.features;
 var liri = isData.features.map(function (el) {
     return el.properties.L_IRI;
