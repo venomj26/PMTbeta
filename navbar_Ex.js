@@ -104,7 +104,7 @@ function initMap(road) {
  
   map=MapBase.obj;
   
-  var isData = loadJSON("http://artsy.ecn.purdue.edu:40080/PatchingTables/SampledRoadSchooldemoPatchingI64.json");
+  var isData = loadJSON("http://artsy.ecn.purdue.edu:8003/PatchingTables/SampledRoadSchooldemoPatchingI64.json");
   console.log("I am in the graph")
   var srData = loadJSON("/SampledRoadSchooldemoPatchingSR327image.json");
   var usData = loadJSON('/SampledRoadSchooldemoPatchingUS421.json');
