@@ -104,8 +104,9 @@ function initMap(road) {
  
   map=MapBase.obj;
   
-  var isData = loadJSON("https://artsy.ecn.purdue.edu/PatchingTables/SampledRoadSchooldemoPatchingI64.json");
-  // var isData = loadJSON("https://artsy.ecn.purdue.edu/PatchingTables/PatchTable_I-69_NB_DL_300.74-307.16.json");
+  // var isData = loadJSON("https://artsy.ecn.purdue.edu/PatchingTables/SampledRoadSchooldemoPatchingI64.json");
+  var isData = loadJSON("https://artsy.ecn.purdue.edu/PatchingTables/PatchTable_I-69_NB_DL_300.74-307.16.json");
+  // var isData = loadJSON('../SampledRoadSchooldemoPatchingI64.json');
   console.log("I am in the graph");
   var srData = loadJSON("/Users/jhasneha/Library/CloudStorage/OneDrive-purdue.edu/Spring2021/SPR_indot/SPRprojectcodes/data/WebPublish/I-69/linestring_test.json");
   console.log("I am logging srData");
