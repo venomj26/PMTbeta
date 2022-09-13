@@ -104,9 +104,13 @@ function initMap(road) {
  
   map=MapBase.obj;
   
-  var isData = loadJSON("http://artsy.ecn.purdue.edu:8003/PatchingTables/SampledRoadSchooldemoPatchingI64.json");
-  console.log("I am in the graph")
-  var srData = loadJSON("/SampledRoadSchooldemoPatchingSR327image.json");
+  var isData = loadJSON("https://artsy.ecn.purdue.edu/PatchingTables/SampledRoadSchooldemoPatchingI64.json");
+  // var isData = loadJSON("https://artsy.ecn.purdue.edu/PatchingTables/PatchTable_I-69_NB_DL_300.74-307.16.json");
+  console.log("I am in the graph");
+  var srData = loadJSON("/Users/jhasneha/Library/CloudStorage/OneDrive-purdue.edu/Spring2021/SPR_indot/SPRprojectcodes/data/WebPublish/I-69/linestring_test.json");
+  console.log("I am logging srData");
+  console.log(srData);
+
   var usData = loadJSON('/SampledRoadSchooldemoPatchingUS421.json');
 
   if (road === 'interState') {
@@ -184,15 +188,16 @@ function initMap(road) {
   } else if (road === 'stateRoad') {
     map.data.addGeoJson(srData);
     //creating different colored markers for each color in  the geojson file   
-    map.setCenter(new google.maps.LatLng(41.596237, -85.169098));
+    // map.setCenter(new google.maps.LatLng(41.596237, -85.169098));
     map.setZoom(12);
 
     map.data.setStyle((feature) => {
       // console.log(feature.getProperty("color"));
       console.log(feature.getProperty("color"));
       return {
-        icon: icons[`icon_${feature.getProperty('color')}`],
-        scaledSize: new google.maps.Size(24, 24),
+        strokeColor: feature.getProperty('color'),
+        strokeOpacity: 0.8,
+        strokeWeight:10,
 
       };
     });
