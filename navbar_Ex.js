@@ -97,6 +97,9 @@ function initMap(road) {
     // },
   };
 
+  const hexToColor=["zero","green","yellow","goldenrod","orangered", "Red","blue","grey"]
+  const colorToHex=["nada","#2ABD08","#F8F813","#B28423","#F87413", "#F51107","#2AB4F5","#DBDDDE"]
+
 
 
   const apiKey = 'AIzaSyAwns33HA__CMj0Akz3bB3uVW7GfRVlZpk';
@@ -105,10 +108,10 @@ function initMap(road) {
   map=MapBase.obj;
   
   // var isData = loadJSON("https://artsy.ecn.purdue.edu/PatchingTables/SampledRoadSchooldemoPatchingI64.json");
-  var isData = loadJSON("https://artsy.ecn.purdue.edu/PatchingTables/PatchTable_I-69_NB_DL_300.74-307.16.json");
-  // var isData = loadJSON('../SampledRoadSchooldemoPatchingI64.json');
+  // var isData = loadJSON("https://artsy.ecn.purdue.edu/PatchingTables/PatchTable_I-69_NB_DL_300.74-307.16.json");
+  var isData = loadJSON('/SampledRoadSchooldemoPatchingI64.json');
   console.log("I am in the graph");
-  var srData = loadJSON("/Users/jhasneha/Library/CloudStorage/OneDrive-purdue.edu/Spring2021/SPR_indot/SPRprojectcodes/data/WebPublish/I-69/linestring_test.json");
+  var srData = loadJSON("/data/linestring_testall.json");
   console.log("I am logging srData");
   console.log(srData);
 
@@ -122,6 +125,7 @@ function initMap(road) {
     //creating different colored markers for each color in  the geojson file
     console.log("loadingcorrectly");
     map.data.setStyle((feature) => {
+      console.log(icons[`icon_${feature.getProperty('color')}`]);
       return {
         icon: icons[`icon_${feature.getProperty('color')}`],
         scaledSize: new google.maps.Size(24, 24),
@@ -172,8 +176,6 @@ function initMap(road) {
       <p><img style="float:center; width:550px; height:420px; margin-top:10px" src="${img3D}"></p>
       <p><img style="float:center; width:550px; height:420px; margin-top:10px" src="${imgRow}"></p>
 
-
-
       
     </div>
     `;
@@ -188,75 +190,94 @@ function initMap(road) {
 
   } else if (road === 'stateRoad') {
     map.data.addGeoJson(srData);
-    //creating different colored markers for each color in  the geojson file   
-    // map.setCenter(new google.maps.LatLng(41.596237, -85.169098));
-    map.setZoom(12);
+    map.setCenter(new google.maps.LatLng(41.013424, -85.255623));
+    map.data.setStyle((feature) =>{
+      console.log(feature.getProperty('patching_code'));
+      console.log(colorToHex[feature.getProperty('patching_code')]);
+      console.log(hexToColor[feature.getProperty('patching_code')]);
 
-    map.data.setStyle((feature) => {
-      // console.log(feature.getProperty("color"));
-      console.log(feature.getProperty("color"));
-      return {
-        strokeColor: feature.getProperty('color'),
+      return{
+        strokeColor: colorToHex[feature.getProperty('patching_code')],
         strokeOpacity: 0.8,
-        strokeWeight:10,
+        clickable: true,
+        strokeWeight: map.getZoom()+2,
 
       };
+      
     });
-    addlegendRoadMarker()
+    
+    // var road_coord = srData.features.geoometry.coordinates;
+    // console.log(road_coord);
+    // //creating different colored markers for each color in  the geojson file   
+    // // map.setCenter(new google.maps.LatLng(41.596237, -85.169098));
+    // map.setZoom(12);
+    // const road = new google.maps.Polyline({
+    //   path:road_coord,
+    // });
 
-    // legend for the roads 
+    // // map.data.setStyle((feature) => {
+    // //   // console.log(feature.getProperty("color"));
+    // //   console.log("maybe data loaded");
+    // //   return {
+    // //     strokeColor: "#fe4480",
+    // //     strokeOpacity: 0.8,
+    // //     strokeWeight:10,
 
-    // var legend = document.getElementById("legend");
+    // //   };
+    // // });
+    // addlegendRoadMarker()
 
-    // for (const key in icons) {
-    //   const icon = icons[key];
-    //   // console.log(icon);
-    //   const name = icon.name;
-    //   // console.log(name);
-    //   const div_c = document.createElement("div");
-    //   div_c.innerHTML = '<svg viewBox="10 0 100 20" xmlns="http://www.w3.org/2000/svg"> <circle id="'+icon.name+'" cx="50%" cy="50%" r="10" stroke="black" stroke-width="0.6" fill="'+icon.fillColor+'"</circle></svg> '+icon.name;
-    //   // console.log(div_c.innerHTML);
+    // // legend for the roads 
 
-    //   legend.appendChild(div_c);
-    // }
-    // map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(legend);
+    // // var legend = document.getElementById("legend");
 
+    // // for (const key in icons) {
+    // //   const icon = icons[key];
+    // //   // console.log(icon);
+    // //   const name = icon.name;
+    // //   // console.log(name);
+    // //   const div_c = document.createElement("div");
+    // //   div_c.innerHTML = '<svg viewBox="10 0 100 20" xmlns="http://www.w3.org/2000/svg"> <circle id="'+icon.name+'" cx="50%" cy="50%" r="10" stroke="black" stroke-width="0.6" fill="'+icon.fillColor+'"</circle></svg> '+icon.name;
+    // //   // console.log(div_c.innerHTML);
+
+    // //   legend.appendChild(div_c);
+    // // }
+    // // map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(legend);
+    
 
     map.data.addListener('click', (event) => {
-      const patching_color = event.feature.getProperty('patching_color');
-      const DMI = event.feature.getProperty('DMI');
+      const path = event.feature.getGeometry("type");
+      console.log(event.feature.coordinates[0]);
+      // const patching_color = event.feature.getProperty('patching_color');
+      const featureID = event.feature.getProperty('ID');
       //   const description = event.feature.getProperty('description');
-      const L_IRI = event.feature.getProperty('L_IRI') > 0.0 ? event.feature.getProperty('L_IRI') : "Data Unavailable";
-      const R_IRI = event.feature.getProperty('R_IRI') > 0.0 ? event.feature.getProperty('R_IRI') : "Data Unavailable";
-      const patching = event.feature.getProperty('patching');
-      const D0 = event.feature.getProperty('D0') > 0.0 ? event.feature.getProperty('D0') : "Data Unavailable";
-      const D48 = event.feature.getProperty('D48') > 0.0 ? event.feature.getProperty('D48') : "Data Unavailable";
-      const BCI = event.feature.getProperty('BCI') > 0.0 ? event.feature.getProperty('BCI') : "Data Unavailable";
-      const BDI = event.feature.getProperty('BDI') > 0.0 ? event.feature.getProperty('BDI') : "Data Unavailable";
-      const SCI = event.feature.getProperty('SCI') > 0.0 ? event.feature.getProperty('SCI') : "Data Unavailable";
+      // const L_IRI = event.feature.getProperty('L_IRI') > 0.0 ? event.feature.getProperty('L_IRI') : "Data Unavailable";
+      // const R_IRI = event.feature.getProperty('R_IRI') > 0.0 ? event.feature.getProperty('R_IRI') : "Data Unavailable";
+      // const patching = event.feature.getProperty('patching');
+      // const D0 = event.feature.getProperty('D0') > 0.0 ? event.feature.getProperty('D0') : "Data Unavailable";
+      // const D48 = event.feature.getProperty('D48') > 0.0 ? event.feature.getProperty('D48') : "Data Unavailable";
+      // const BCI = event.feature.getProperty('BCI') > 0.0 ? event.feature.getProperty('BCI') : "Data Unavailable";
+      // const BDI = event.feature.getProperty('BDI') > 0.0 ? event.feature.getProperty('BDI') : "Data Unavailable";
+      // const SCI = event.feature.getProperty('SCI') > 0.0 ? event.feature.getProperty('SCI') : "Data Unavailable";
       const Road = event.feature.getProperty('Road');
       const Bound = event.feature.getProperty('Bound');
       const Lane = event.feature.getProperty('Lane');
-      const image = event.feature.getProperty('image');
-      console.log(`http://artsy.ecn.purdue.edu:40080/LL%2337%20SR-327%20RP-15%2B55%20to%20RP-23%2B87/SB-20190906.121422/ROWImg/00000000/${image}`);
-      const position = event.feature.getGeometry().get();
+      // const image = event.feature.getProperty('image');
+      // console.log(`http://artsy.ecn.purdue.edu:40080/LL%2337%20SR-327%20RP-15%2B55%20to%20RP-23%2B87/SB-20190906.121422/ROWImg/00000000/${image}`);
+      // const position = event.feature.getGeometry().get();
       const content = `
     <div style="margin-left:20px; margin-bottom:20px;">
       <h2> Road: ${Road} ${Bound} ${Lane} </h2>
-      <h4>DMI: ${DMI}</h4><h4>patching: ${patching}</h4>
-      <p><b>L_IRI (Th:330):</b> ${L_IRI}<br/><b>R_IRI(Th:330):</b> ${R_IRI}</p>
-      <p><b>Surface Deflection(Th=24.6):</b> ${D0}<br/><b>Subgrade Deflection(Th=1.8):</b> ${D48}</p>
-      <p><b>SCI(Th=6):</b> ${SCI}<br/><b>BCI(Th=3):</b> ${BCI}<br/><b>BDI(Th=4.5):</b> ${BDI}<br/></p>
-      <img style="float:center; width:350px; height:120px; margin-top:10px" src="http://artsy.ecn.purdue.edu:40080/LL%2337%20SR-327%20RP-15%2B55%20to%20RP-23%2B87/SB-20190906.121422/ROWImg/00000000/${image}">
-
-  
-
-      <p><img src="https://maps.googleapis.com/maps/api/streetview?size=350x120&location=${position.lat()},${position.lng()}&key=${apiKey}"></p>
-    </div>
+      <h4>Feature ID: ${featureID}</h4>
+      
+      
+      
+      
+      </div>
     `;
 
       infoWindow.setContent(content);
-      infoWindow.setPosition(position);
+      infoWindow.setPosition(path);
       infoWindow.setOptions({
         pixelOffset: new google.maps.Size(0, -30)
       });

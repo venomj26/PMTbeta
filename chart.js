@@ -13,9 +13,9 @@ function loadJSON(data) {
   }
 
   
-// var isData= loadJSON("http://artsy.ecn.purdue.edu:8003/PatchingTables/PatchTable_I-69_NB_DL_300.74-307.16.json");
 
-var isData=loadJSON("https://artsy.ecn.purdue.edu/PatchingTables/PatchTable_I-69_NB_DL_300.74-307.16.json");
+// var isData=loadJSON("https://artsy.ecn.purdue.edu/PatchingTables/PatchTable_I-69_NB_DL_300.74-307.16.json");
+var isData = loadJSON('/SampledRoadSchooldemoPatchingI64.json');
 
 let features=isData.features;
 var liri = isData.features.map(function (el) {
