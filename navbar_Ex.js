@@ -100,6 +100,7 @@ function initMap(road) {
   const hexToColor=["zero","green","yellow","goldenrod","orangered", "Red","blue","grey"]
   const colorToHex=["nada","#2ABD08","#F8F813","#B28423","#F87413", "#F51107","#2AB4F5","#DBDDDE"]
 
+  // var colors = ["#FF0000", "#800000", "#00FF00", "#008000", "#0000FF", "	#8A2BE2", "#A52A2A", "#DEB887", "#5F9EA0", "#000080", "#FFFF00", "#808000", "#FF00FF", "#800080", "#00FFFF", "#7FFFD4", "#008080", "#000000"];
 
 
   const apiKey = 'AIzaSyAwns33HA__CMj0Akz3bB3uVW7GfRVlZpk';
@@ -165,6 +166,8 @@ function initMap(road) {
       const img3D = event.feature.getProperty('3DImg');
       const imgRow = event.feature.getProperty('rowImg');
       const position = event.feature.getGeometry().get();
+      console.log("logging  possition for interstate");
+      console.log(position);
       const content = `
     <div style="margin-left:20px; margin-bottom:20px;">
       <h2> Road: ${Road} ${Bound} ${Lane}  </h2>
@@ -246,30 +249,31 @@ function initMap(road) {
     
 
     map.data.addListener('click', (event) => {
-      const path = event.feature.getGeometry("type");
-      console.log(event.feature.coordinates[0]);
-      // const patching_color = event.feature.getProperty('patching_color');
+      console.log("in the  listener");
       const featureID = event.feature.getProperty('ID');
-      //   const description = event.feature.getProperty('description');
-      // const L_IRI = event.feature.getProperty('L_IRI') > 0.0 ? event.feature.getProperty('L_IRI') : "Data Unavailable";
-      // const R_IRI = event.feature.getProperty('R_IRI') > 0.0 ? event.feature.getProperty('R_IRI') : "Data Unavailable";
-      // const patching = event.feature.getProperty('patching');
-      // const D0 = event.feature.getProperty('D0') > 0.0 ? event.feature.getProperty('D0') : "Data Unavailable";
-      // const D48 = event.feature.getProperty('D48') > 0.0 ? event.feature.getProperty('D48') : "Data Unavailable";
-      // const BCI = event.feature.getProperty('BCI') > 0.0 ? event.feature.getProperty('BCI') : "Data Unavailable";
-      // const BDI = event.feature.getProperty('BDI') > 0.0 ? event.feature.getProperty('BDI') : "Data Unavailable";
-      // const SCI = event.feature.getProperty('SCI') > 0.0 ? event.feature.getProperty('SCI') : "Data Unavailable";
+      const patch = event.feature.getProperty('patching');
+      const L_IRI = event.feature.getProperty('L_IRI')=== 0.0 ? "Data Unavailable":event.feature.getProperty('R_IRI');
+      const R_IRI = event.feature.getProperty('R_IRI')=== 0.0 ? "Data Unavailable":event.feature.getProperty('R_IRI');
+      const D0 = event.feature.getProperty('D0')> 0.0 ? event.feature.getProperty('D0') : "Data Unavailable";
+      const D60 = event.feature.getProperty('D60') > 0.0 ? event.feature.getProperty('D60') : "Data Unavailable";
+      const BCI = event.feature.getProperty('BCI') > 0.0 ? event.feature.getProperty('BCI') : "Data Unavailable";
+      const BDI = event.feature.getProperty('BDI') > 0.0 ? event.feature.getProperty('BDI') : "Data Unavailable";
+      const SCI = event.feature.getProperty('SCI') > 0.0 ? event.feature.getProperty('SCI') : "Data Unavailable";
       const Road = event.feature.getProperty('Road');
       const Bound = event.feature.getProperty('Bound');
       const Lane = event.feature.getProperty('Lane');
       // const image = event.feature.getProperty('image');
       // console.log(`http://artsy.ecn.purdue.edu:40080/LL%2337%20SR-327%20RP-15%2B55%20to%20RP-23%2B87/SB-20190906.121422/ROWImg/00000000/${image}`);
-      // const position = event.feature.getGeometry().get();
+      const position = event.latLng;
+      console.log(position);
       const content = `
     <div style="margin-left:20px; margin-bottom:20px;">
       <h2> Road: ${Road} ${Bound} ${Lane} </h2>
       <h4>Feature ID: ${featureID}</h4>
-      
+      <h4>Patch Suggestion: ${patch}</h4>
+      <p><b>L_IRI:</b> ${L_IRI}<br/><b>R_IRI:</b> ${R_IRI}</p>
+      <p><b>Surface Deflection:</b> ${D0}<br/><b>Subgrade Deflection:</b> ${D60}</p>
+      <p><b>SCI:</b> ${SCI}<br/><b>BCI:</b> ${BCI}<br/><b>BDI:</b> ${BDI}<br/></p>
       
       
       
@@ -277,7 +281,7 @@ function initMap(road) {
     `;
 
       infoWindow.setContent(content);
-      infoWindow.setPosition(path);
+      infoWindow.setPosition(position);
       infoWindow.setOptions({
         pixelOffset: new google.maps.Size(0, -30)
       });
