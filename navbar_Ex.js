@@ -97,6 +97,40 @@ function initMap(road) {
     // },
   };
 
+  var iconsLine = {
+    icon_green: {
+      name: "Good Road",
+      strokeColor: 'green'
+    },
+    icon_yellow: {
+      name: "surface Patch Warning",
+      strokeColor: 'yellow'
+    },
+    icon_goldenrod:{
+      name: "Surface Patch Required",
+      strokeColor: '#B28423'
+    },
+    icon_orangered:{
+      name: "Full Depth Patch Warning",
+      strokeColor: "#F87413"
+    },
+    icon_red:{
+      name: "Full Depth Patch Required",
+      strokeColor: "#F51107"
+    },
+    icon_blue:{
+      name: "High IRI Testing",
+      strokeColor: "#2AB4F5"
+    },
+    icon_grey:{
+      name: "testing",
+      strokeColor: "#DBDDDE"
+    }
+    
+
+  }
+
+
   const hexToColor=["zero","green","yellow","goldenrod","orangered", "Red","blue","grey"]
   const colorToHex=["nada","#2ABD08","#F8F813","#B28423","#F87413", "#F51107","#2AB4F5","#DBDDDE"]
 
@@ -108,11 +142,11 @@ function initMap(road) {
  
   map=MapBase.obj;
   
-  // var isData = loadJSON("https://artsy.ecn.purdue.edu/PatchingTables/SampledRoadSchooldemoPatchingI64.json");
+  var isData = loadJSON("https://artsy.ecn.purdue.edu/PatchingTables/SampledRoadSchooldemoPatchingI64.json");
   // var isData = loadJSON("https://artsy.ecn.purdue.edu/PatchingTables/PatchTable_I-69_NB_DL_300.74-307.16.json");
-  var isData = loadJSON('/SampledRoadSchooldemoPatchingI64.json');
+  // var isData = loadJSON('/SampledRoadSchooldemoPatchingI64.json');
   console.log("I am in the graph");
-  var srData = loadJSON("/data/linestring_testall.json");
+  var srData = loadJSON("https://artsy.ecn.purdue.edu/PatchingTables/I69.geojson");
   console.log("I am logging srData");
   console.log(srData);
 
@@ -126,7 +160,7 @@ function initMap(road) {
     //creating different colored markers for each color in  the geojson file
     console.log("loadingcorrectly");
     map.data.setStyle((feature) => {
-      console.log(icons[`icon_${feature.getProperty('color')}`]);
+      // console.log(icons[`icon_${feature.getProperty('color')}`]);
       return {
         icon: icons[`icon_${feature.getProperty('color')}`],
         scaledSize: new google.maps.Size(24, 24),
@@ -166,8 +200,8 @@ function initMap(road) {
       const img3D = event.feature.getProperty('3DImg');
       const imgRow = event.feature.getProperty('rowImg');
       const position = event.feature.getGeometry().get();
-      console.log("logging  possition for interstate");
-      console.log(position);
+      // console.log("logging  position for interstate");
+      // console.log(position);
       const content = `
     <div style="margin-left:20px; margin-bottom:20px;">
       <h2> Road: ${Road} ${Bound} ${Lane}  </h2>
@@ -195,9 +229,9 @@ function initMap(road) {
     map.data.addGeoJson(srData);
     map.setCenter(new google.maps.LatLng(41.013424, -85.255623));
     map.data.setStyle((feature) =>{
-      console.log(feature.getProperty('patching_code'));
-      console.log(colorToHex[feature.getProperty('patching_code')]);
-      console.log(hexToColor[feature.getProperty('patching_code')]);
+      // console.log(feature.getProperty('patching_code'));
+      // console.log(colorToHex[feature.getProperty('patching_code')]);
+      // console.log(hexToColor[feature.getProperty('patching_code')]);
 
       return{
         strokeColor: colorToHex[feature.getProperty('patching_code')],
@@ -208,45 +242,8 @@ function initMap(road) {
       };
       
     });
-    
-    // var road_coord = srData.features.geoometry.coordinates;
-    // console.log(road_coord);
-    // //creating different colored markers for each color in  the geojson file   
-    // // map.setCenter(new google.maps.LatLng(41.596237, -85.169098));
-    // map.setZoom(12);
-    // const road = new google.maps.Polyline({
-    //   path:road_coord,
-    // });
-
-    // // map.data.setStyle((feature) => {
-    // //   // console.log(feature.getProperty("color"));
-    // //   console.log("maybe data loaded");
-    // //   return {
-    // //     strokeColor: "#fe4480",
-    // //     strokeOpacity: 0.8,
-    // //     strokeWeight:10,
-
-    // //   };
-    // // });
-    // addlegendRoadMarker()
-
-    // // legend for the roads 
-
-    // // var legend = document.getElementById("legend");
-
-    // // for (const key in icons) {
-    // //   const icon = icons[key];
-    // //   // console.log(icon);
-    // //   const name = icon.name;
-    // //   // console.log(name);
-    // //   const div_c = document.createElement("div");
-    // //   div_c.innerHTML = '<svg viewBox="10 0 100 20" xmlns="http://www.w3.org/2000/svg"> <circle id="'+icon.name+'" cx="50%" cy="50%" r="10" stroke="black" stroke-width="0.6" fill="'+icon.fillColor+'"</circle></svg> '+icon.name;
-    // //   // console.log(div_c.innerHTML);
-
-    // //   legend.appendChild(div_c);
-    // // }
-    // // map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(legend);
-    
+ 
+    addlegendRoadMarkerLine()
 
     map.data.addListener('click', (event) => {
       console.log("in the  listener");
@@ -262,19 +259,23 @@ function initMap(road) {
       const Road = event.feature.getProperty('Road');
       const Bound = event.feature.getProperty('Bound');
       const Lane = event.feature.getProperty('Lane');
+      const img3D = event.feature.getProperty('3DImg');
+      const imgRow = event.feature.getProperty('rowImg');
       // const image = event.feature.getProperty('image');
       // console.log(`http://artsy.ecn.purdue.edu:40080/LL%2337%20SR-327%20RP-15%2B55%20to%20RP-23%2B87/SB-20190906.121422/ROWImg/00000000/${image}`);
       const position = event.latLng;
       console.log(position);
       const content = `
     <div style="margin-left:20px; margin-bottom:20px;">
-      <h2> Road: ${Road} ${Bound} ${Lane} </h2>
+      <h2> Road: ${Road} ${Bound} ${Lane} Refpt: 300.74-307.16 </h2>
       <h4>Feature ID: ${featureID}</h4>
       <h4>Patch Suggestion: ${patch}</h4>
       <p><b>L_IRI:</b> ${L_IRI}<br/><b>R_IRI:</b> ${R_IRI}</p>
       <p><b>Surface Deflection:</b> ${D0}<br/><b>Subgrade Deflection:</b> ${D60}</p>
       <p><b>SCI:</b> ${SCI}<br/><b>BCI:</b> ${BCI}<br/><b>BDI:</b> ${BDI}<br/></p>
-      
+      <p><img style="float:center; width:550px; height:420px; margin-top:10px" src="${img3D}"></p>
+      <p><img style="float:center; width:550px; height:420px; margin-top:10px" src="${imgRow}"></p>
+
       
       
       </div>
@@ -287,6 +288,7 @@ function initMap(road) {
       });
       infoWindow.open(map);
     });
+
   } else if (road === 'usH') {
     map.data.loadGeoJson(usData);
     map.setCenter(new google.maps.LatLng(39.949184, -86.240227));
@@ -306,19 +308,19 @@ function initMap(road) {
     // legend for the roads 
     // var legend = document.getElementById("legend");
 
-    // for (const key in icons) {
-    //   const icon = icons[key];
+    // for (const key in icons_LS) {
+    //   const icon = icons_LS[key];
     //   console.log(icon);
     //   const name = icon.name;
     //   console.log(name);
     //   const div_custom = document.createElement("div");
-    //   div_custom.innerHTML = '<svg viewBox="10 0 100 20" xmlns="http://www.w3.org/2000/svg"> <circle cx="50%" cy="50%" r="10" stroke="black" stroke-width="0.6" fill="'+icon.fillColor+'"</circle></svg> '+icon.name;
+    //   div_custom.innerHTML = '<svg viewBox="10 0 100 20" xmlns="http://www.w3.org/2000/svg"> <circle cx="50%" cy="50%" r="10" stroke="black" stroke-width="0.6" fill="'+icon.strokeColor+'"</circle></svg> '+icon.name;
     //   console.log(legend);
 
     //   legend.appendChild(div_custom);
     // }
     // map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(legend);
-    console.log('not working');
+    // console.log('not working');
     //Show the information for a store when its marker is clicked.
     map.data.addListener('click', (event) => {
       const patching_color = event.feature.getProperty('patching_color');
@@ -382,6 +384,29 @@ function initMap(road) {
       legend.appendChild(div_custom);
     }
     map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(legend);
+
+
+  }
+
+  function addlegendRoadMarkerLine() {
+    var legendLine = document.getElementById("roadMarkerLegendLine");
+    if (legendLine === null) {
+      $('body').append('<div id="roadMarkerLegendLine"><h3>LegendLine</h3></div>');
+    }
+    var legendLine = document.getElementById("roadMarkerLegendLine");
+
+    for (const key in iconsLine) {
+      const icon = iconsLine[key];
+      // console.log(icon);
+      // const name = icon.name;
+      // console.log(name);
+      const div_custom = document.createElement("div");
+      div_custom.innerHTML = '<svg viewBox="10 0 100 20" xmlns="http://www.w3.org/2000/svg"> <circle cx="50%" cy="50%" r="10" stroke="black" stroke-width="0.6" fill="' + icon.strokeColor + '"</circle></svg> ' + icon.name;
+      // console.log(legend);
+
+      legendLine.appendChild(div_custom);
+    }
+    map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(legendLine);
 
 
   }
@@ -1331,6 +1356,7 @@ function parameterSelectorMap(road, parameterType) {
       $('#map').addClass('active');
       $('#container-left').show();
       $('#container-right').show();
+      $('#roadMarkerLegendLine').hide();
       $('.side-bar').removeClass('active');
       $('.menu-btn').css('visibility', 'visible');  
     });
@@ -1340,11 +1366,12 @@ function parameterSelectorMap(road, parameterType) {
       let roadType = $(this).attr('id');
       initMap(roadType);
       alert(roadType);
-      // $('#map').addClass('active');
-      // $('#container-left').show();
-      // $('#container-right').show();
-      // $('.side-bar').removeClass('active');
-      // $('.menu-btn').css('visibility', 'visible');
+      $('#map').addClass('active');
+      $('#containerSR-left').show();
+      $('#containerSR-right').show();
+      $('#roadMarkerLegend').hide();
+      $('.side-bar').removeClass('active');
+      $('.menu-btn').css('visibility', 'visible');
     });
     $('.usH').click(function () {
       let roadType = $(this).attr('id');
@@ -1430,6 +1457,8 @@ function parameterSelectorMap(road, parameterType) {
       $('.menu-btn').css('visibility', 'hidden');
       $('#container-left').hide();
       $('#container-right').hide();
+      $('#containerSR-left').hide();
+      $('#containerSR-right').hide();
       $('#map').removeClass('active');
 
 
