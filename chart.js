@@ -14,7 +14,7 @@ function loadJSON(data) {
 
 
 
-var isData = loadJSON('/SampledRoadSchooldemoPatchingI64.json');
+var isData = loadJSON('https://artsy.ecn.purdue.edu/PatchingTables/SampledRoadSchooldemoPatchingI64.json');
 
 let features=isData.features;
 var liri = isData.features.map(function (el) {

@@ -295,32 +295,32 @@ input[type=range]:focus::-webkit-slider-runnable-track {
   display:none;
   backdrop-filter: blur(10px);
 }
- #container-right {
-   position: absolute;
-  /* margin: 300px; */
-   top: 6%;
-   left:51%;
-   cursor: pointer;
-   display:none;
-  }
+#container-right {
+  position: absolute;
+/* margin: 300px; */
+  top: 6%;
+  left:51%;
+  cursor: pointer;
+  display:none;
+}
 
-  #containerSR-left {
-    position: absolute;
-   /* margin: 300px; */
-    top: 6%;
-    left:5%;
-    cursor: pointer;
-    display:none;
-    backdrop-filter: blur(10px);
-  }
-   #containerSR-right {
-     position: absolute;
-    /* margin: 300px; */
-     top: 6%;
-     left:51%;
-     cursor: pointer;
-     display:none;
-    }
+#containerSR-left {
+  position: absolute;
+  /* margin: 300px; */
+  top: 6%;
+  left:5%;
+  cursor: pointer;
+  display:none;
+  backdrop-filter: blur(10px);
+}
+#containerSR-right {
+  position: absolute;
+/* margin: 300px; */
+  top: 6%;
+  left:51%;
+  cursor: pointer;
+  display:none;
+}
 
   
 
