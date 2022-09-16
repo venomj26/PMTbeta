@@ -12,15 +12,14 @@ function loadJSON(data) {
     return json;
   }
 
-  
 
-var isData=loadJSON("https://artsy.ecn.purdue.edu/PatchingTables/PatchTable_I-69_NB_DL_300.74-307.16.json");
-// var isData = loadJSON('/SampledRoadSchooldemoPatchingI64.json');
+
+var isData = loadJSON('/SampledRoadSchooldemoPatchingI64.json');
 
 let features=isData.features;
 var liri = isData.features.map(function (el) {
     return el.properties.L_IRI;
-  });
+});
 var riri = isData.features.map(function (el) {
     return el.properties.R_IRI;
 });
@@ -31,8 +30,8 @@ var D48 = isData.features.map(function (el) {
     return el.properties.D48;
 });
 var DMI = isData.features.map(function (el) {
-     var dmiS = "" + el.properties.DMI;
-     return dmiS;
+    var dmiS = "" + el.properties.DMI;
+    return dmiS;
 });
 var Index = isData.features.map(function (el) {
     return el.properties.index;
@@ -369,12 +368,13 @@ var chart = {
 
 
 
+
 var srData=loadJSON("https://artsy.ecn.purdue.edu/PatchingTables/I69.geojson");
 // var isData = loadJSON('/SampledRoadSchooldemoPatchingI64.json');
 let srfeatures=srData.features;
 var liriSR = srData.features.map(function (el) {
     return el.properties.L_IRI_max;
-  });
+    });
 console.log(liriSR);
 
 var ririSR = srData.features.map(function (el) {
@@ -387,8 +387,8 @@ var D48SR = srData.features.map(function (el) {
     return el.properties.D60_max;
 });
 var DMISR = srData.features.map(function (el) {
-     var dmiS = "" + el.properties.ID;
-     return dmiS;
+        var dmiS = "" + el.properties.ID;
+        return dmiS;
 });
 var IndexSR = srData.features.map(function (el) {
     return el.properties.ID;
@@ -721,4 +721,10 @@ var chart = {
 
     },
 }
+    
+    
+    
+
+
+
 

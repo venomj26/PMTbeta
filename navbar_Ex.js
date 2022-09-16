@@ -163,7 +163,8 @@ function initMap(road) {
       // console.log(icons[`icon_${feature.getProperty('color')}`]);
       return {
         icon: icons[`icon_${feature.getProperty('color')}`],
-        scaledSize: new google.maps.Size(24, 24),
+        // scaledSize: new google.maps.Size(24, 24),
+        scaledSize:map.getZoom()+2
       };
     });
     addlegendRoadMarker()
@@ -292,7 +293,7 @@ function initMap(road) {
   } else if (road === 'usH') {
     map.data.loadGeoJson(usData);
     map.setCenter(new google.maps.LatLng(39.949184, -86.240227));
-    map.setZoom(12);
+    // map.setZoom(12);
 
 
     //creating different colored markers for each color in  the geojson file
@@ -871,470 +872,470 @@ function parameterSelectorMap(road, parameterType) {
 
   }
 
-  function thresholdSelectorMap(road) {
-    // Styles a map in night mode.
-    const map = new google.maps.Map(document.getElementById("map"), {
-      mapId:"f40f07dbbe0ad612",
-      center: {
-        lat: 40.2672,
-        lng: -86.1349
-      }, //change to center at Indiana polis when more roadss are added
-      zoom: 8,
-      styles: [{
-          elementType: "geometry",
-          stylers: [{
-            color: "#242f3e"
-          }]
-        },
-        {
-          elementType: "labels.text.stroke",
-          stylers: [{
-            color: "#242f3e"
-          }]
-        },
-        {
-          elementType: "labels.text.fill",
-          stylers: [{
-            color: "#746855"
-          }]
-        },
-        {
-          featureType: "administrative.locality",
-          elementType: "labels.text.fill",
-          stylers: [{
-            color: "#d59563"
-          }],
-        },
+function thresholdSelectorMap(road) {
+  // Styles a map in night mode.
+  const map = new google.maps.Map(document.getElementById("map"), {
+    mapId:"f40f07dbbe0ad612",
+    center: {
+      lat: 40.2672,
+      lng: -86.1349
+    }, //change to center at Indiana polis when more roadss are added
+    zoom: 8,
+    styles: [{
+        elementType: "geometry",
+        stylers: [{
+          color: "#242f3e"
+        }]
+      },
+      {
+        elementType: "labels.text.stroke",
+        stylers: [{
+          color: "#242f3e"
+        }]
+      },
+      {
+        elementType: "labels.text.fill",
+        stylers: [{
+          color: "#746855"
+        }]
+      },
+      {
+        featureType: "administrative.locality",
+        elementType: "labels.text.fill",
+        stylers: [{
+          color: "#d59563"
+        }],
+      },
 
-        {
-          featureType: "road",
-          elementType: "geometry",
-          stylers: [{
-            color: "#38414e"
-          }],
-        },
+      {
+        featureType: "road",
+        elementType: "geometry",
+        stylers: [{
+          color: "#38414e"
+        }],
+      },
 
-        {
-          "featureType": "poi",
-          "elementType": "labels.text",
-          "stylers": [{
-            "visibility": "off"
-          }]
-        },
-        {
-          "featureType": "poi",
-          "elementType": "labels.text.fill",
-          "stylers": [{
-            "color": "#d59563"
-          }]
-        },
-        {
-          "featureType": "poi.business",
-          "stylers": [{
-            "visibility": "off"
-          }]
-        },
-        {
-          "featureType": "poi.park",
-          "elementType": "geometry",
-          "stylers": [{
-            "color": "#263c3f"
-          }]
-        },
-        {
-          "featureType": "poi.park",
-          "elementType": "labels.text.fill",
-          "stylers": [{
-            "color": "#6b9a76"
-          }]
-        },
-        {
-          "featureType": "road",
-          "elementType": "geometry",
-          "stylers": [{
-            "color": "#38414e"
-          }]
-        },
-        {
-          "featureType": "road",
-          "elementType": "geometry.stroke",
-          "stylers": [{
-            "color": "#212a37"
-          }]
-        },
-        {
-          "featureType": "road",
-          "elementType": "labels.icon",
-          "stylers": [{
-            "visibility": "off"
-          }]
-        },
-        {
-          "featureType": "road",
-          "elementType": "labels.text.fill",
-          "stylers": [{
-            "color": "#9ca5b3"
-          }]
-        },
-        {
-          "featureType": "road.highway",
-          "elementType": "geometry",
-          "stylers": [{
-            "color": "#746855"
-          }]
-        },
-        {
-          "featureType": "road.highway",
-          "elementType": "geometry.stroke",
-          "stylers": [{
-            "color": "#1f2835"
-          }]
-        },
-        {
-          "featureType": "road.highway",
-          "elementType": "labels.text.fill",
-          "stylers": [{
-            "color": "#f3d19c"
-          }]
-        },
-        {
-          "featureType": "transit",
-          "stylers": [{
-            "visibility": "off"
-          }]
-        },
-        {
-          "featureType": "transit",
-          "elementType": "geometry",
-          "stylers": [{
-            "color": "#2f3948"
-          }]
-        },
-        {
-          "featureType": "transit.station",
-          "elementType": "labels.text.fill",
-          "stylers": [{
-            "color": "#d59563"
-          }]
-        },
-        {
-          "featureType": "water",
-          "elementType": "geometry",
-          "stylers": [{
-            "color": "#17263c"
-          }]
-        },
-        {
-          "featureType": "water",
-          "elementType": "labels.text.fill",
-          "stylers": [{
-            "color": "#515c6d"
-          }]
-        },
-        {
-          "featureType": "water",
-          "elementType": "labels.text.stroke",
-          "stylers": [{
-            "color": "#17263c"
-          }]
-        }
-      ]
+      {
+        "featureType": "poi",
+        "elementType": "labels.text",
+        "stylers": [{
+          "visibility": "off"
+        }]
+      },
+      {
+        "featureType": "poi",
+        "elementType": "labels.text.fill",
+        "stylers": [{
+          "color": "#d59563"
+        }]
+      },
+      {
+        "featureType": "poi.business",
+        "stylers": [{
+          "visibility": "off"
+        }]
+      },
+      {
+        "featureType": "poi.park",
+        "elementType": "geometry",
+        "stylers": [{
+          "color": "#263c3f"
+        }]
+      },
+      {
+        "featureType": "poi.park",
+        "elementType": "labels.text.fill",
+        "stylers": [{
+          "color": "#6b9a76"
+        }]
+      },
+      {
+        "featureType": "road",
+        "elementType": "geometry",
+        "stylers": [{
+          "color": "#38414e"
+        }]
+      },
+      {
+        "featureType": "road",
+        "elementType": "geometry.stroke",
+        "stylers": [{
+          "color": "#212a37"
+        }]
+      },
+      {
+        "featureType": "road",
+        "elementType": "labels.icon",
+        "stylers": [{
+          "visibility": "off"
+        }]
+      },
+      {
+        "featureType": "road",
+        "elementType": "labels.text.fill",
+        "stylers": [{
+          "color": "#9ca5b3"
+        }]
+      },
+      {
+        "featureType": "road.highway",
+        "elementType": "geometry",
+        "stylers": [{
+          "color": "#746855"
+        }]
+      },
+      {
+        "featureType": "road.highway",
+        "elementType": "geometry.stroke",
+        "stylers": [{
+          "color": "#1f2835"
+        }]
+      },
+      {
+        "featureType": "road.highway",
+        "elementType": "labels.text.fill",
+        "stylers": [{
+          "color": "#f3d19c"
+        }]
+      },
+      {
+        "featureType": "transit",
+        "stylers": [{
+          "visibility": "off"
+        }]
+      },
+      {
+        "featureType": "transit",
+        "elementType": "geometry",
+        "stylers": [{
+          "color": "#2f3948"
+        }]
+      },
+      {
+        "featureType": "transit.station",
+        "elementType": "labels.text.fill",
+        "stylers": [{
+          "color": "#d59563"
+        }]
+      },
+      {
+        "featureType": "water",
+        "elementType": "geometry",
+        "stylers": [{
+          "color": "#17263c"
+        }]
+      },
+      {
+        "featureType": "water",
+        "elementType": "labels.text.fill",
+        "stylers": [{
+          "color": "#515c6d"
+        }]
+      },
+      {
+        "featureType": "water",
+        "elementType": "labels.text.stroke",
+        "stylers": [{
+          "color": "#17263c"
+        }]
+      }
+    ]
 
 
+  });
+  iconSize = 0.5;
+  var icons = {
+    icon_red: {
+      path: "M-20,0a20,20 0 1,0 40,0a20,20 0 1,0 -40,0",
+      fillColor: 'red',
+      fillOpacity: .6,
+      strokeWeight: 0,
+      scale: iconSize
+    },
+    icon_blue: {
+
+      path: "M-20,0a20,20 0 1,0 40,0a20,20 0 1,0 -40,0",
+      fillColor: 'blue',
+      fillOpacity: .6,
+      strokeWeight: 0,
+      scale: iconSize
+    },
+
+    icon_orange: {
+
+      path: "M-20,0a20,20 0 1,0 40,0a20,20 0 1,0 -40,0",
+      fillColor: 'orange',
+      fillOpacity: .8,
+      strokeWeight: 0,
+      scale: iconSize
+    },
+
+    icon_orangered: {
+      path: "M-20,0a20,20 0 1,0 40,0a20,20 0 1,0 -40,0",
+      fillColor: 'OrangeRed',
+      fillOpacity: .6,
+      strokeWeight: 0,
+      scale: iconSize
+    },
+
+    icon_yellow: {
+
+      path: "M-20,0a20,20 0 1,0 40,0a20,20 0 1,0 -40,0",
+      fillColor: 'Yellow',
+      fillOpacity: .6,
+      strokeWeight: 0,
+      scale: iconSize
+    },
+
+    icon_grey: {
+
+      path: "M-20,0a20,20 0 1,0 40,0a20,20 0 1,0 -40,0",
+      fillColor: 'Silver',
+      fillOpacity: .6,
+      strokeWeight: 0,
+      scale: iconSize
+    },
+
+    icon_goldenrod: {
+
+      path: "M-20,0a20,20 0 1,0 40,0a20,20 0 1,0 -40,0",
+      fillColor: 'gooldenrod',
+      fillOpacity: .6,
+      strokeWeight: 0,
+      scale: iconSize
+    },
+    icon_green: {
+      path: "M-20,0a20,20 0 1,0 40,0a20,20 0 1,0 -40,0",
+      fillColor: 'green',
+      fillOpacity: .6,
+      strokeWeight: 0,
+      scale: iconSize
+    },
+
+  };
+  
+  const apiKey = 'AIzaSyAwns33HA__CMj0Akz3bB3uVW7GfRVlZpk';
+  const infoWindow = new google.maps.InfoWindow();
+
+  if (road === 'InterState-IRI') {
+    map.data.loadGeoJson('/SampledRoadSchooldemoPatchingI69.json');
+    map.data.setStyle(function (feature) {
+      var LIRI = feature.getProperty('L_IRI');
+      var RIRI = feature.getProperty('R_IRI');
+      console.log(icons[`icon_${color}`]);
+
+      var color = (LIRI >= 1000 || RIRI >= 1000) ? 'blue' : ((LIRI < 1000 && LIRI >= 270) || (RIRI < 1000 && RIRI >= 270)) ? "red" : ((LIRI < 270 && LIRI >= 70) || (RIRI < 270 && RIRI >= 70)) ? "yellow" : 'green';
+      return {
+        icon: icons[`icon_${color}`],
+        scaledSize: new google.maps.Size(45, 45),
+      };
     });
-    iconSize = 0.5;
-    var icons = {
-      icon_red: {
-        path: "M-20,0a20,20 0 1,0 40,0a20,20 0 1,0 -40,0",
-        fillColor: 'red',
-        fillOpacity: .6,
-        strokeWeight: 0,
-        scale: iconSize
-      },
-      icon_blue: {
-
-        path: "M-20,0a20,20 0 1,0 40,0a20,20 0 1,0 -40,0",
-        fillColor: 'blue',
-        fillOpacity: .6,
-        strokeWeight: 0,
-        scale: iconSize
-      },
-
-      icon_orange: {
-
-        path: "M-20,0a20,20 0 1,0 40,0a20,20 0 1,0 -40,0",
-        fillColor: 'orange',
-        fillOpacity: .8,
-        strokeWeight: 0,
-        scale: iconSize
-      },
-
-      icon_orangered: {
-        path: "M-20,0a20,20 0 1,0 40,0a20,20 0 1,0 -40,0",
-        fillColor: 'OrangeRed',
-        fillOpacity: .6,
-        strokeWeight: 0,
-        scale: iconSize
-      },
-
-      icon_yellow: {
-
-        path: "M-20,0a20,20 0 1,0 40,0a20,20 0 1,0 -40,0",
-        fillColor: 'Yellow',
-        fillOpacity: .6,
-        strokeWeight: 0,
-        scale: iconSize
-      },
-
-      icon_grey: {
-
-        path: "M-20,0a20,20 0 1,0 40,0a20,20 0 1,0 -40,0",
-        fillColor: 'Silver',
-        fillOpacity: .6,
-        strokeWeight: 0,
-        scale: iconSize
-      },
-
-      icon_goldenrod: {
-
-        path: "M-20,0a20,20 0 1,0 40,0a20,20 0 1,0 -40,0",
-        fillColor: 'gooldenrod',
-        fillOpacity: .6,
-        strokeWeight: 0,
-        scale: iconSize
-      },
-      icon_green: {
-        path: "M-20,0a20,20 0 1,0 40,0a20,20 0 1,0 -40,0",
-        fillColor: 'green',
-        fillOpacity: .6,
-        strokeWeight: 0,
-        scale: iconSize
-      },
-
-    };
-    
-    const apiKey = 'AIzaSyAwns33HA__CMj0Akz3bB3uVW7GfRVlZpk';
-    const infoWindow = new google.maps.InfoWindow();
-
-    if (road === 'InterState-IRI') {
-      map.data.loadGeoJson('/SampledRoadSchooldemoPatchingI69.json');
-      map.data.setStyle(function (feature) {
-        var LIRI = feature.getProperty('L_IRI');
-        var RIRI = feature.getProperty('R_IRI');
-        console.log(icons[`icon_${color}`]);
-
-        var color = (LIRI >= 1000 || RIRI >= 1000) ? 'blue' : ((LIRI < 1000 && LIRI >= 270) || (RIRI < 1000 && RIRI >= 270)) ? "red" : ((LIRI < 270 && LIRI >= 70) || (RIRI < 270 && RIRI >= 70)) ? "yellow" : 'green';
-        return {
-          icon: icons[`icon_${color}`],
-          scaledSize: new google.maps.Size(45, 45),
-        };
+    map.data.addListener('click', (event) => {
+      const DMI = event.feature.getProperty('DMI');
+      //   const description = event.feature.getProperty('description');
+      const L_IRI = event.feature.getProperty('L_IRI') > 0.0 ? event.feature.getProperty('L_IRI') : "Data Unavailable";
+      const R_IRI = event.feature.getProperty('R_IRI') > 0.0 ? event.feature.getProperty('R_IRI') : "Data Unavailable";
+      const patching = event.feature.getProperty('patching');
+      const Road = event.feature.getProperty('Road');
+      const Bound = event.feature.getProperty('Bound');
+      const Lane = event.feature.getProperty('Lane');
+      const position = event.feature.getGeometry().get();
+      const content = `
+    <div style="margin-left:20px; margin-bottom:20px;">
+      <h2> Road: ${Road} ${Bound} ${Lane} </h2>
+      <h4>DMI: ${DMI}</h4><h4>patching: ${patching}</h4>
+      <p><b>L_IRI(Th=270):</b> ${L_IRI}<br/><b>R_IRI(Th=270):</b> ${R_IRI}</p>
+      <p><img src="https://maps.googleapis.com/maps/api/streetview?size=350x120&location=${position.lat()},${position.lng()}&key=${apiKey}"></p>
+    </div>
+    `;
+      infoWindow.setContent(content);
+      infoWindow.setPosition(position);
+      infoWindow.setOptions({
+        pixelOffset: new google.maps.Size(0, -30)
       });
-      map.data.addListener('click', (event) => {
-        const DMI = event.feature.getProperty('DMI');
-        //   const description = event.feature.getProperty('description');
-        const L_IRI = event.feature.getProperty('L_IRI') > 0.0 ? event.feature.getProperty('L_IRI') : "Data Unavailable";
-        const R_IRI = event.feature.getProperty('R_IRI') > 0.0 ? event.feature.getProperty('R_IRI') : "Data Unavailable";
-        const patching = event.feature.getProperty('patching');
-        const Road = event.feature.getProperty('Road');
-        const Bound = event.feature.getProperty('Bound');
-        const Lane = event.feature.getProperty('Lane');
-        const position = event.feature.getGeometry().get();
-        const content = `
-      <div style="margin-left:20px; margin-bottom:20px;">
-        <h2> Road: ${Road} ${Bound} ${Lane} </h2>
-        <h4>DMI: ${DMI}</h4><h4>patching: ${patching}</h4>
-        <p><b>L_IRI(Th=270):</b> ${L_IRI}<br/><b>R_IRI(Th=270):</b> ${R_IRI}</p>
-        <p><img src="https://maps.googleapis.com/maps/api/streetview?size=350x120&location=${position.lat()},${position.lng()}&key=${apiKey}"></p>
-      </div>
-      `;
-        infoWindow.setContent(content);
-        infoWindow.setPosition(position);
-        infoWindow.setOptions({
-          pixelOffset: new google.maps.Size(0, -30)
-        });
-        infoWindow.open(map);
+      infoWindow.open(map);
+    });
+
+  } else if (road === 'State-IRI') {
+    map.data.loadGeoJson('/SampledRoadSchooldemoPatchingSR327.json');
+    map.data.setStyle(function (feature) {
+      var LIRI = feature.getProperty('L_IRI');
+      var RIRI = feature.getProperty('R_IRI');
+      var color = (LIRI >= 1000 || RIRI >= 1000) ? 'blue' : ((LIRI < 1000 && LIRI >= 330) || (RIRI < 1000 && RIRI >= 330)) ? "red" : ((LIRI < 330 && LIRI >= 70) || (RIRI < 330 && RIRI >= 70)) ? "yellow" : 'green';
+      console.log(color);
+
+      return {
+        icon: icons[`icon_${color}`],
+        scaledSize: new google.maps.Size(45, 45),
+      };
+    });
+    map.data.addListener('click', (event) => {
+      const DMI = event.feature.getProperty('DMI');
+      //   const description = event.feature.getProperty('description');
+      const L_IRI = event.feature.getProperty('L_IRI') > 0.0 ? event.feature.getProperty('L_IRI') : "Data Unavailable";
+      const R_IRI = event.feature.getProperty('R_IRI') > 0.0 ? event.feature.getProperty('R_IRI') : "Data Unavailable";
+      const patching = event.feature.getProperty('patching');
+      const Road = event.feature.getProperty('Road');
+      const Bound = event.feature.getProperty('Bound');
+      const Lane = event.feature.getProperty('Lane');
+      const position = event.feature.getGeometry().get();
+      const content = `
+    <div style="margin-left:20px; margin-bottom:20px;">
+      <h2> Road: ${Road} ${Bound} ${Lane} </h2>
+      <h4>DMI: ${DMI}</h4><h4>patching: ${patching}</h4>
+      <p><b>L_IRI(Th=330):</b> ${L_IRI}<br/><b>R_IRI(Th=330):</b> ${R_IRI}</p>
+      <p><img src="https://maps.googleapis.com/maps/api/streetview?size=350x120&location=${position.lat()},${position.lng()}&key=${apiKey}"></p>
+    </div>
+    `;
+      infoWindow.setContent(content);
+      infoWindow.setPosition(position);
+      infoWindow.setOptions({
+        pixelOffset: new google.maps.Size(0, -30)
       });
+      infoWindow.open(map);
+    });
 
-    } else if (road === 'State-IRI') {
-      map.data.loadGeoJson('/SampledRoadSchooldemoPatchingSR327.json');
-      map.data.setStyle(function (feature) {
-        var LIRI = feature.getProperty('L_IRI');
-        var RIRI = feature.getProperty('R_IRI');
-        var color = (LIRI >= 1000 || RIRI >= 1000) ? 'blue' : ((LIRI < 1000 && LIRI >= 330) || (RIRI < 1000 && RIRI >= 330)) ? "red" : ((LIRI < 330 && LIRI >= 70) || (RIRI < 330 && RIRI >= 70)) ? "yellow" : 'green';
-        console.log(color);
-
-        return {
-          icon: icons[`icon_${color}`],
-          scaledSize: new google.maps.Size(45, 45),
-        };
+  } else if (road === 'USH-IRI') {
+    map.data.loadGeoJson('/SampledRoadSchooldemoPatchingUS421.json');
+    map.data.setStyle(function (feature) {
+      var LIRI = feature.getProperty('L_IRI');
+      var RIRI = feature.getProperty('R_IRI');
+      console.log(icons[`icon_${color}`]);
+      var color = (LIRI >= 1000 || RIRI >= 1000) ? 'blue' : ((LIRI < 1000 && LIRI >= 300) || (RIRI < 1000 && RIRI >= 300)) ? "red" : ((LIRI < 300 && LIRI >= 70) || (RIRI < 300 && RIRI >= 70)) ? "yellow" : 'green';
+      return {
+        icon: icons[`icon_${color}`],
+        scaledSize: new google.maps.Size(45, 45),
+      };
+    });
+    map.data.addListener('click', (event) => {
+      const DMI = event.feature.getProperty('DMI');
+      //   const description = event.feature.getProperty('description');
+      const L_IRI = event.feature.getProperty('L_IRI') > 0.0 ? event.feature.getProperty('L_IRI') : "Data Unavailable";
+      const R_IRI = event.feature.getProperty('R_IRI') > 0.0 ? event.feature.getProperty('R_IRI') : "Data Unavailable";
+      const patching = event.feature.getProperty('patching');
+      const Road = event.feature.getProperty('Road');
+      const Bound = event.feature.getProperty('Bound');
+      const Lane = event.feature.getProperty('Lane');
+      const position = event.feature.getGeometry().get();
+      const content = `
+    <div style="margin-left:20px; margin-bottom:20px;">
+      <h2> Road: ${Road} ${Bound} ${Lane} </h2>
+      <h4>DMI: ${DMI}</h4><h4>patching: ${patching}</h4>
+      <p><b>L_IRI(Th=300):</b> ${L_IRI}<br/><b>R_IRI(Th=300):</b> ${R_IRI}</p>
+      <p><img src="https://maps.googleapis.com/maps/api/streetview?size=350x120&location=${position.lat()},${position.lng()}&key=${apiKey}"></p>
+    </div>
+    `;
+      infoWindow.setContent(content);
+      infoWindow.setPosition(position);
+      infoWindow.setOptions({
+        pixelOffset: new google.maps.Size(0, -30)
       });
-      map.data.addListener('click', (event) => {
-        const DMI = event.feature.getProperty('DMI');
-        //   const description = event.feature.getProperty('description');
-        const L_IRI = event.feature.getProperty('L_IRI') > 0.0 ? event.feature.getProperty('L_IRI') : "Data Unavailable";
-        const R_IRI = event.feature.getProperty('R_IRI') > 0.0 ? event.feature.getProperty('R_IRI') : "Data Unavailable";
-        const patching = event.feature.getProperty('patching');
-        const Road = event.feature.getProperty('Road');
-        const Bound = event.feature.getProperty('Bound');
-        const Lane = event.feature.getProperty('Lane');
-        const position = event.feature.getGeometry().get();
-        const content = `
-      <div style="margin-left:20px; margin-bottom:20px;">
-        <h2> Road: ${Road} ${Bound} ${Lane} </h2>
-        <h4>DMI: ${DMI}</h4><h4>patching: ${patching}</h4>
-        <p><b>L_IRI(Th=330):</b> ${L_IRI}<br/><b>R_IRI(Th=330):</b> ${R_IRI}</p>
-        <p><img src="https://maps.googleapis.com/maps/api/streetview?size=350x120&location=${position.lat()},${position.lng()}&key=${apiKey}"></p>
-      </div>
-      `;
-        infoWindow.setContent(content);
-        infoWindow.setPosition(position);
-        infoWindow.setOptions({
-          pixelOffset: new google.maps.Size(0, -30)
-        });
-        infoWindow.open(map);
+      infoWindow.open(map);
+    });
+
+  } else if (road === 'InterState-FWD') {
+    map.data.loadGeoJson('/fwd_I69.json');
+    map.data.setStyle(function (feature) {
+      var SCI = feature.getProperty('SCI');
+      var BCI = feature.getProperty('BCI');
+      var BDI = feature.getProperty('BDI');
+      var D0 = feature.getProperty('D0');
+      var D48 = feature.getProperty('D48');
+      var color = (BCI >= 3 || D48 >= 1.8) ? 'orange' : (SCI >= 6 || BDI >= 4.5 || D0 >= 24.6) ? 'yellow' : 'green';
+      return {
+        icon: icons[`icon_${color}`],
+        scaledSize: new google.maps.Size(45, 45),
+      };
+    });
+    map.data.addListener('click', (event) => {
+      const DMI = event.feature.getProperty('DMI');
+      const D0 = event.feature.getProperty('D0') > 0.0 ? event.feature.getProperty('D0') : "Data Unavailable";
+      const D48 = event.feature.getProperty('D48') > 0.0 ? event.feature.getProperty('D48') : "Data Unavailable";
+      const BCI = event.feature.getProperty('BCI') > 0.0 ? event.feature.getProperty('BCI') : "Data Unavailable";
+      const BDI = event.feature.getProperty('BDI') > 0.0 ? event.feature.getProperty('BDI') : "Data Unavailable";
+      const SCI = event.feature.getProperty('SCI') > 0.0 ? event.feature.getProperty('SCI') : "Data Unavailable";
+      const patching = (BCI >= 3 || D48 >= 1.8) ? 'Full depth Patch' : (SCI >= 6 || BDI >= 4.5 || D0 >= 24.6) ? 'Surface Patch' : 'Good Condition';
+
+      const Road = event.feature.getProperty('Road');
+      const Bound = event.feature.getProperty('Bound');
+      const Lane = event.feature.getProperty('Lane');
+      const position = event.feature.getGeometry().get();
+      const content = `
+    <div style="margin-left:20px; margin-bottom:20px;">
+      <h2> Road: ${Road} ${Bound} ${Lane} </h2>
+      <h4>DMI: ${DMI}</h4><h4>patching: ${patching}</h4>
+      <p><b>Surface Deflection(Th=24.6):</b> ${D0}<br/><b>Subgrade Deflection(Th=1.8):</b> ${D48}</p>
+      <p><b>SCI(Th=6):</b> ${SCI}<br/><b>BCI(Th=3):</b> ${BCI}<br/><b>BDI(Th=4.5):</b> ${BDI}<br/></p>
+
+
+      <p><img src="https://maps.googleapis.com/maps/api/streetview?size=350x120&location=${position.lat()},${position.lng()}&key=${apiKey}"></p>
+    </div>
+    `;
+      infoWindow.setContent(content);
+      infoWindow.setPosition(position);
+      infoWindow.setOptions({
+        pixelOffset: new google.maps.Size(0, -30)
       });
+      infoWindow.open(map);
+    });
 
-    } else if (road === 'USH-IRI') {
-      map.data.loadGeoJson('/SampledRoadSchooldemoPatchingUS421.json');
-      map.data.setStyle(function (feature) {
-        var LIRI = feature.getProperty('L_IRI');
-        var RIRI = feature.getProperty('R_IRI');
-        console.log(icons[`icon_${color}`]);
-        var color = (LIRI >= 1000 || RIRI >= 1000) ? 'blue' : ((LIRI < 1000 && LIRI >= 300) || (RIRI < 1000 && RIRI >= 300)) ? "red" : ((LIRI < 300 && LIRI >= 70) || (RIRI < 300 && RIRI >= 70)) ? "yellow" : 'green';
-        return {
-          icon: icons[`icon_${color}`],
-          scaledSize: new google.maps.Size(45, 45),
-        };
+
+
+  } else if (road === 'State-FWD') {
+    map.data.loadGeoJson('/fwd_SR327.json');
+    map.data.setStyle(function (feature) {
+      var SCI = feature.getProperty('SCI');
+      var BCI = feature.getProperty('BCI');
+      var BDI = feature.getProperty('BDI');
+      var D0 = feature.getProperty('D0');
+      var D48 = feature.getProperty('D48');
+      var color = (BCI >= 3 || D48 >= 1.8) ? 'orange' : (SCI >= 6 || BDI >= 4.5 || D0 >= 24.6) ? 'yellow' : 'green';
+      return {
+        icon: icons[`icon_${color}`],
+        scaledSize: new google.maps.Size(45, 45),
+      };
+    });
+    map.data.addListener('click', (event) => {
+      const DMI = event.feature.getProperty('DMI');
+      const D0 = event.feature.getProperty('D0') > 0.0 ? event.feature.getProperty('D0') : "Data Unavailable";
+      const D48 = event.feature.getProperty('D48') > 0.0 ? event.feature.getProperty('D48') : "Data Unavailable";
+      const BCI = event.feature.getProperty('BCI') > 0.0 ? event.feature.getProperty('BCI') : "Data Unavailable";
+      const BDI = event.feature.getProperty('BDI') > 0.0 ? event.feature.getProperty('BDI') : "Data Unavailable";
+      const SCI = event.feature.getProperty('SCI') > 0.0 ? event.feature.getProperty('SCI') : "Data Unavailable";
+      const patching = (BCI >= 3 || D48 >= 1.8) ? 'Full depth Patch ' : (SCI >= 6 || BDI >= 4.5 || D0 >= 24.6) ? 'Surface Patch' : 'Good Condition';
+      const Road = event.feature.getProperty('Road');
+      const Bound = event.feature.getProperty('Bound');
+      const Lane = event.feature.getProperty('Lane');
+      const position = event.feature.getGeometry().get();
+      const content = `
+    <div style="margin-left:20px; margin-bottom:20px;">
+      <h2> Road: ${Road} ${Bound} ${Lane} </h2>
+      <h4>DMI: ${DMI}</h4><h4>patching: ${patching}</h4>
+      <p><b>Surface Deflection(Th=24.6):</b> ${D0}<br/><b>Subgrade Deflection(Th=1.8):</b> ${D48}</p>
+      <p><b>SCI(Th=6):</b> ${SCI}<br/><b>BCI(Th=3):</b> ${BCI}<br/><b>BDI(Th=4.5):</b> ${BDI}<br/></p>
+
+
+      <p><img src="https://maps.googleapis.com/maps/api/streetview?size=350x120&location=${position.lat()},${position.lng()}&key=${apiKey}"></p>
+    </div>
+    `;
+      infoWindow.setContent(content);
+      infoWindow.setPosition(position);
+      infoWindow.setOptions({
+        pixelOffset: new google.maps.Size(0, -30)
       });
-      map.data.addListener('click', (event) => {
-        const DMI = event.feature.getProperty('DMI');
-        //   const description = event.feature.getProperty('description');
-        const L_IRI = event.feature.getProperty('L_IRI') > 0.0 ? event.feature.getProperty('L_IRI') : "Data Unavailable";
-        const R_IRI = event.feature.getProperty('R_IRI') > 0.0 ? event.feature.getProperty('R_IRI') : "Data Unavailable";
-        const patching = event.feature.getProperty('patching');
-        const Road = event.feature.getProperty('Road');
-        const Bound = event.feature.getProperty('Bound');
-        const Lane = event.feature.getProperty('Lane');
-        const position = event.feature.getGeometry().get();
-        const content = `
-      <div style="margin-left:20px; margin-bottom:20px;">
-        <h2> Road: ${Road} ${Bound} ${Lane} </h2>
-        <h4>DMI: ${DMI}</h4><h4>patching: ${patching}</h4>
-        <p><b>L_IRI(Th=300):</b> ${L_IRI}<br/><b>R_IRI(Th=300):</b> ${R_IRI}</p>
-        <p><img src="https://maps.googleapis.com/maps/api/streetview?size=350x120&location=${position.lat()},${position.lng()}&key=${apiKey}"></p>
-      </div>
-      `;
-        infoWindow.setContent(content);
-        infoWindow.setPosition(position);
-        infoWindow.setOptions({
-          pixelOffset: new google.maps.Size(0, -30)
-        });
-        infoWindow.open(map);
-      });
+      infoWindow.open(map);
+    });
 
-    } else if (road === 'InterState-FWD') {
-      map.data.loadGeoJson('/fwd_I69.json');
-      map.data.setStyle(function (feature) {
-        var SCI = feature.getProperty('SCI');
-        var BCI = feature.getProperty('BCI');
-        var BDI = feature.getProperty('BDI');
-        var D0 = feature.getProperty('D0');
-        var D48 = feature.getProperty('D48');
-        var color = (BCI >= 3 || D48 >= 1.8) ? 'orange' : (SCI >= 6 || BDI >= 4.5 || D0 >= 24.6) ? 'yellow' : 'green';
-        return {
-          icon: icons[`icon_${color}`],
-          scaledSize: new google.maps.Size(45, 45),
-        };
-      });
-      map.data.addListener('click', (event) => {
-        const DMI = event.feature.getProperty('DMI');
-        const D0 = event.feature.getProperty('D0') > 0.0 ? event.feature.getProperty('D0') : "Data Unavailable";
-        const D48 = event.feature.getProperty('D48') > 0.0 ? event.feature.getProperty('D48') : "Data Unavailable";
-        const BCI = event.feature.getProperty('BCI') > 0.0 ? event.feature.getProperty('BCI') : "Data Unavailable";
-        const BDI = event.feature.getProperty('BDI') > 0.0 ? event.feature.getProperty('BDI') : "Data Unavailable";
-        const SCI = event.feature.getProperty('SCI') > 0.0 ? event.feature.getProperty('SCI') : "Data Unavailable";
-        const patching = (BCI >= 3 || D48 >= 1.8) ? 'Full depth Patch' : (SCI >= 6 || BDI >= 4.5 || D0 >= 24.6) ? 'Surface Patch' : 'Good Condition';
-
-        const Road = event.feature.getProperty('Road');
-        const Bound = event.feature.getProperty('Bound');
-        const Lane = event.feature.getProperty('Lane');
-        const position = event.feature.getGeometry().get();
-        const content = `
-      <div style="margin-left:20px; margin-bottom:20px;">
-        <h2> Road: ${Road} ${Bound} ${Lane} </h2>
-        <h4>DMI: ${DMI}</h4><h4>patching: ${patching}</h4>
-        <p><b>Surface Deflection(Th=24.6):</b> ${D0}<br/><b>Subgrade Deflection(Th=1.8):</b> ${D48}</p>
-        <p><b>SCI(Th=6):</b> ${SCI}<br/><b>BCI(Th=3):</b> ${BCI}<br/><b>BDI(Th=4.5):</b> ${BDI}<br/></p>
-  
-  
-        <p><img src="https://maps.googleapis.com/maps/api/streetview?size=350x120&location=${position.lat()},${position.lng()}&key=${apiKey}"></p>
-      </div>
-      `;
-        infoWindow.setContent(content);
-        infoWindow.setPosition(position);
-        infoWindow.setOptions({
-          pixelOffset: new google.maps.Size(0, -30)
-        });
-        infoWindow.open(map);
-      });
-
-
-
-    } else if (road === 'State-FWD') {
-      map.data.loadGeoJson('/fwd_SR327.json');
-      map.data.setStyle(function (feature) {
-        var SCI = feature.getProperty('SCI');
-        var BCI = feature.getProperty('BCI');
-        var BDI = feature.getProperty('BDI');
-        var D0 = feature.getProperty('D0');
-        var D48 = feature.getProperty('D48');
-        var color = (BCI >= 3 || D48 >= 1.8) ? 'orange' : (SCI >= 6 || BDI >= 4.5 || D0 >= 24.6) ? 'yellow' : 'green';
-        return {
-          icon: icons[`icon_${color}`],
-          scaledSize: new google.maps.Size(45, 45),
-        };
-      });
-      map.data.addListener('click', (event) => {
-        const DMI = event.feature.getProperty('DMI');
-        const D0 = event.feature.getProperty('D0') > 0.0 ? event.feature.getProperty('D0') : "Data Unavailable";
-        const D48 = event.feature.getProperty('D48') > 0.0 ? event.feature.getProperty('D48') : "Data Unavailable";
-        const BCI = event.feature.getProperty('BCI') > 0.0 ? event.feature.getProperty('BCI') : "Data Unavailable";
-        const BDI = event.feature.getProperty('BDI') > 0.0 ? event.feature.getProperty('BDI') : "Data Unavailable";
-        const SCI = event.feature.getProperty('SCI') > 0.0 ? event.feature.getProperty('SCI') : "Data Unavailable";
-        const patching = (BCI >= 3 || D48 >= 1.8) ? 'Full depth Patch ' : (SCI >= 6 || BDI >= 4.5 || D0 >= 24.6) ? 'Surface Patch' : 'Good Condition';
-        const Road = event.feature.getProperty('Road');
-        const Bound = event.feature.getProperty('Bound');
-        const Lane = event.feature.getProperty('Lane');
-        const position = event.feature.getGeometry().get();
-        const content = `
-      <div style="margin-left:20px; margin-bottom:20px;">
-        <h2> Road: ${Road} ${Bound} ${Lane} </h2>
-        <h4>DMI: ${DMI}</h4><h4>patching: ${patching}</h4>
-        <p><b>Surface Deflection(Th=24.6):</b> ${D0}<br/><b>Subgrade Deflection(Th=1.8):</b> ${D48}</p>
-        <p><b>SCI(Th=6):</b> ${SCI}<br/><b>BCI(Th=3):</b> ${BCI}<br/><b>BDI(Th=4.5):</b> ${BDI}<br/></p>
-  
-  
-        <p><img src="https://maps.googleapis.com/maps/api/streetview?size=350x120&location=${position.lat()},${position.lng()}&key=${apiKey}"></p>
-      </div>
-      `;
-        infoWindow.setContent(content);
-        infoWindow.setPosition(position);
-        infoWindow.setOptions({
-          pixelOffset: new google.maps.Size(0, -30)
-        });
-        infoWindow.open(map);
-      });
-
-    } else if (road === 'USH-FWD') {
-      alert("FWD data Unavailable");
-    }
-
-
-
-    //Show the information for a store when its marker is clicked.
-
-    //  map() add the code to hide colored poooints in clusters
+  } else if (road === 'USH-FWD') {
+    alert("FWD data Unavailable");
   }
+
+
+
+  //Show the information for a store when its marker is clicked.
+
+  //  map() add the code to hide colored poooints in clusters
+}
 
   $(document).ready(function () {
     //jquery for toggle sub menus
@@ -1357,6 +1358,7 @@ function parameterSelectorMap(road, parameterType) {
       $('#container-left').show();
       $('#container-right').show();
       $('#roadMarkerLegendLine').hide();
+      $('#roadMarkerLegend').show();
       $('.side-bar').removeClass('active');
       $('.menu-btn').css('visibility', 'visible');  
     });
@@ -1369,6 +1371,7 @@ function parameterSelectorMap(road, parameterType) {
       $('#map').addClass('active');
       $('#containerSR-left').show();
       $('#containerSR-right').show();
+      $('#roadMarkerLegendLine').show();
       $('#roadMarkerLegend').hide();
       $('.side-bar').removeClass('active');
       $('.menu-btn').css('visibility', 'visible');
