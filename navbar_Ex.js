@@ -25,7 +25,7 @@
 //   return json;
 // }
 
-// testing pulll req
+
 // let map;
 function initMap(road) {
   iconSize = 0.5
