@@ -533,6 +533,38 @@ function parameterSelectorMap(road, parameterType) {
     
 
   }
+  var iconsLine = {
+    icon_green: {
+      name: "Good Road",
+      strokeColor: 'green'
+    },
+    icon_yellow: {
+      name: "surface Patch Warning",
+      strokeColor: 'yellow'
+    },
+    icon_goldenrod:{
+      name: "Surface Patch Required",
+      strokeColor: '#B28423'
+    },
+    icon_orangered:{
+      name: "Full Depth Patch Warning",
+      strokeColor: "#F87413"
+    },
+    icon_red:{
+      name: "Full Depth Patch Required",
+      strokeColor: "#F51107"
+    },
+    icon_blue:{
+      name: "High IRI Testing",
+      strokeColor: "#2AB4F5"
+    },
+    icon_grey:{
+      name: "testing",
+      strokeColor: "#DBDDDE"
+    }
+    
+
+  }
 
   const colorToHexFWD=["nada","#FB0303","#FBE103","#03FB52","#D4D7D8"]
   const colorToHex=["nada","#2ABD08","#F8F813","#B28423","#F87413", "#F51107","#2AB4F5","#DBDDDE"]
@@ -553,7 +585,7 @@ function parameterSelectorMap(road, parameterType) {
   var ISFWDData = loadJSON("https://artsy.ecn.purdue.edu/PatchingTables/ISfwdGroupedByRoad.json");
   // var srFWDData = loadJSON("/FWDUG_demo_data/ISfwdGroupedByRoad.json");
   var USHFWDData = loadJSON("https://artsy.ecn.purdue.edu/PatchingTables/USfwdGroupedByRoad.json");
-  var TSD = loadJSON("/FWDUG_demo_data/TSDI94grouped.json")
+  var TSD = loadJSON("https://artsy.ecn.purdue.edu/PatchingTables/TSDI94grouped.json")
 
   if (road === 'InterState-IRI' && parameterType==='IS-LIRI') {
     map.data.addGeoJson(psDataisleft);
@@ -1045,7 +1077,7 @@ function parameterSelectorMap(road, parameterType) {
       
     });
  
-    // addlegendRoadMarkerLine()
+    addlegendRoadMarkerLine()
 
     map.data.addListener('click', (event) => {
       console.log("in the  listener");
@@ -1126,6 +1158,30 @@ function parameterSelectorMap(road, parameterType) {
     }
     map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(legendLine);
   }
+  function addlegendRoadMarkerLine() {
+    var legendLine = document.getElementById("roadMarkerLegendLine");
+    if (legendLine === null) {
+      $('body').append('<div id="roadMarkerLegendLine"><h3>LegendLine</h3></div>');
+    }
+    var legendLine = document.getElementById("roadMarkerLegendLine");
+
+    for (const key in iconsLine) {
+      const icon = iconsLine[key];
+      // console.log(icon);
+      // const name = icon.name;
+      // console.log(name);
+      const div_custom = document.createElement("div");
+      div_custom.innerHTML = '<svg viewBox="10 0 100 20" xmlns="http://www.w3.org/2000/svg"> <circle cx="50%" cy="50%" r="10" stroke="black" stroke-width="0.6" fill="' + icon.strokeColor + '"</circle></svg> ' + icon.name;
+      // console.log(legend);
+
+      legendLine.appendChild(div_custom);
+    }
+    map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(legendLine);
+
+
+  }
+
+
 
 }
 
