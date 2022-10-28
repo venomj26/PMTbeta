@@ -285,6 +285,18 @@ input[type=range]:focus::-webkit-slider-runnable-track {
   border: 3px solid rgb(27, 18, 32);
   border-radius: 8px;
 }
+#roadMarkerLegendLineFWD {
+  font-family: Garamond;
+  background: rgba(44, 44, 47, 0.578);
+  font-size: xxxx-small;
+  color:rgb(211, 212, 216);
+  padding: 10px;
+  margin: 50px;
+  border: 3px solid rgb(27, 18, 32);
+  border-radius: 8px;
+}
+
+
 
 #container-left {
   position: absolute;

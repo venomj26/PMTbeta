@@ -547,9 +547,9 @@ function parameterSelectorMap(road, parameterType) {
   var psDataSR = loadJSON("/SampledRoadSchooldemoPatchingSR327image.json");
   var psDataUS = loadJSON('/SampledRoadSchooldemoPatchingUS421.json');
 
-  var isFWDData = loadJSON("/FWDUG_demo_data/IS_FWD.json");
+  var ISFWDData = loadJSON("/FWDUG_demo_data/ISfwdGroupedByRoad.json");
   var srFWDData = loadJSON("/FWDUG_demo_data/ISfwdGroupedByRoad.json");
-  var usFWDData = loadJSON('/FWDUG_demo_data/US_FWD.json');
+  var USHFWDData = loadJSON("/FWDUG_demo_data/USfwdGroupedByRoad.json");
 
   if (road === 'InterState-IRI' && parameterType==='IS-LIRI') {
     map.data.addGeoJson(psDatais);
@@ -720,8 +720,8 @@ function parameterSelectorMap(road, parameterType) {
       infoWindow.open(map);
     });
 
-  } else if (road === 'InterState-FWD'&& parameterType==='ID0'){
-    map.data.addGeoJson(isFWDData);
+  } else if (road === 'state-FWD'&& parameterType==='SD0'){
+    map.data.addGeoJson(srFWDData);
     map.setCenter(new google.maps.LatLng(39.7684, -85.1581));
     map.setZoom(6);
 
@@ -780,8 +780,8 @@ function parameterSelectorMap(road, parameterType) {
 
 
 
-  } else if (road === 'State-FWD'&& parameterType==='SD0') {
-    // map.data.addGeoJson(srFWDData);
+  } else if (road === 'InterState-FWD'&& parameterType==='ID0') {
+    // map.data.addGeoJson(ISFWDData);
     // map.setCenter(new google.maps.LatLng(39.7684, -85.1581));
     // map.setZoom(6);
     // map.data.setStyle(function (feature) {
@@ -839,7 +839,7 @@ function parameterSelectorMap(road, parameterType) {
     //   });
     //   infoWindow.open(map);
     // });
-    map.data.addGeoJson(srFWDData);
+    map.data.addGeoJson(ISFWDData);
 
     map.setCenter(new google.maps.LatLng(39.7684, -85.1581));
     map.setZoom(6);
@@ -896,7 +896,69 @@ function parameterSelectorMap(road, parameterType) {
       infoWindow.open(map);
     });
 
-    addlegendRoadMarkerLine()
+    addlegendRoadMarkerLineFWD()
+  } else if (road === 'USH-FWD'&& parameterType==='USHD0') {
+    console.log("finding error");
+ 
+    map.data.addGeoJson(USHFWDData);
+
+    map.setCenter(new google.maps.LatLng(39.7684, -85.1581));
+    map.setZoom(6);
+    map.data.setStyle((feature) =>{
+ 
+      return{
+        strokeColor: colorToHexFWD[feature.getProperty('colorID')],
+        strokeOpacity: 0.8,
+        clickable: true,
+        strokeWeight: map.getZoom()+2,
+
+      };
+      
+    });
+
+    map.data.addListener('click', (event) => {
+      console.log("in the  listener");
+      const featureID = event.feature.getProperty('ID');
+      
+      const D0 = event.feature.getProperty('D0_max')> 0.0 ? event.feature.getProperty('D0_max') : "Data Unavailable";
+      const D60 = event.feature.getProperty('D60_max') > 0.0 ? event.feature.getProperty('D60_max') : "Data Unavailable";
+      const BCI = event.feature.getProperty('BCI_max') > 0.0 ? event.feature.getProperty('BCI_max') : "Data Unavailable";
+      const BDI = event.feature.getProperty('BDI_max') > 0.0 ? event.feature.getProperty('BDI_max') : "Data Unavailable";
+      const SCI = event.feature.getProperty('SCI_max') > 0.0 ? event.feature.getProperty('SCI_max') : "Data Unavailable";
+      const AUPP = event.feature.getProperty('AUPP_max') > 0.0 ? event.feature.getProperty('AUPP_max') : "Data Unavailable";
+
+      const Road = event.feature.getProperty('Road');
+      const Bound = event.feature.getProperty('Bound');
+      const refpt = event.feature.getProperty('refpt');
+
+      const position = event.latLng;
+      console.log(position);
+      const content = `
+    <div style="margin-left:20px; margin-bottom:20px;">
+      <h2> Road: ${Road} ${Bound} ${refpt} </h2>
+      <h4>Feature ID: ${featureID}</h4>
+      <p><b>SurfaceDeflection:</b> ${D0} milli-inches</p>
+      <p><b>Surface Curvature Index:</b> ${SCI} milli-inches</p>
+      <p><b>Base Damage Index:</b> ${BDI} milli-inches</p>
+      <p><b>Base Curvature Index:</b> ${BCI} milli-inches</p>
+      <p><b>Subgrade Deflection:</b> ${D60} milli-inches</p>
+      <p><b>Area under pavement profile :</b> ${AUPP} milli-inches </p>
+      <p><img src="https://maps.googleapis.com/maps/api/streetview?size=350x120&location=${position.lat()},${position.lng()}&key=${apiKey}"></p>
+
+      
+      </div>
+    `;
+
+      infoWindow.setContent(content);
+      infoWindow.setPosition(position);
+      infoWindow.setOptions({
+        pixelOffset: new google.maps.Size(0, -30)
+      });
+      infoWindow.open(map);
+    });
+
+    // addlegendRoadMarkerLineFWD() add legend only once for each sensor
+
 
   } else if (road === 'InterState-TSD') {
     map.data.loadGeoJson('/tsdDemoData_sampledMilePost.json');
@@ -956,8 +1018,6 @@ function parameterSelectorMap(road, parameterType) {
       });
       infoWindow.open(map);
     });
-  }else if (road === 'USH-FWD') {
-    alert("FWD data Unavailable");
   }
   function addlegendRoadMarker(icontype) {
     var legend = document.getElementById("roadMarkerLegend");
@@ -979,12 +1039,12 @@ function parameterSelectorMap(road, parameterType) {
     }
     map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(legend);
   }
-  function addlegendRoadMarkerLine() {
-    var legendLine = document.getElementById("roadMarkerLegendLine");
+  function addlegendRoadMarkerLineFWD() {
+    var legendLine = document.getElementById("roadMarkerLegendLineFWD");
     if (legendLine === null) {
-      $('body').append('<div id="roadMarkerLegendLine"><h3>LegendLine</h3></div>');
+      $('body').append('<div id="roadMarkerLegendLineFWD"><h3>LegendLine</h3></div>');
     }
-    var legendLine = document.getElementById("roadMarkerLegendLine");
+    var legendLine = document.getElementById("roadMarkerLegendLineFWD");
 
     for (const key in iconsLinePS) {
       const icon = iconsLinePS[key];
@@ -1565,10 +1625,13 @@ function thresholdSelectorMap(road) {
       $('.side-bar').removeClass('active');
       $('.menu-btn').css('visibility', 'visible');
     });
-    $('.USH-FWD').click(function () {
+    $('.USHD0').click(function () {
       let parameterType = $(this).attr('class');
+      let road = 'USH-FWD';
+      parameterSelectorMap(road,parameterType);
       alert(parameterType);
-      parameterSelectorMap(parameterType);
+      $('.side-bar').removeClass('active');
+      $('.menu-btn').css('visibility', 'visible');
 
     });
     $('.InterState-TSD').click(function () {
