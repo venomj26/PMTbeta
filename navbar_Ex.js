@@ -543,15 +543,15 @@ function parameterSelectorMap(road, parameterType) {
   map=MapBase.obj;
 
 
-  var psDataisleft = loadJSON("/FWDUG_demo_data/LIRIGroupedByRoadI4.json");
-  var psDataisright = loadJSON("/FWDUG_demo_data/RIRIGroupedByRoadI4.json");
+  var psDataisleft = loadJSON("https://artsy.ecn.purdue.edu/PatchingTables/LIRIGroupedByRoadI4.json");
+  var psDataisright = loadJSON("https://artsy.ecn.purdue.edu/PatchingTables/RIRIGroupedByRoadI4.json");
 
-  var psDataSR = loadJSON("/SampledRoadSchooldemoPatchingSR327image.json");
-  var psDataUS = loadJSON('/SampledRoadSchooldemoPatchingUS421.json');
+  // var psDataSR = loadJSON("/SampledRoadSchooldemoPatchingSR327image.json");
+  // var psDataUS = loadJSON('/SampledRoadSchooldemoPatchingUS421.json');
 
-  var ISFWDData = loadJSON("/FWDUG_demo_data/ISfwdGroupedByRoad.json");
+  var ISFWDData = loadJSON("https://artsy.ecn.purdue.edu/PatchingTables/ISfwdGroupedByRoad.json");
   var srFWDData = loadJSON("/FWDUG_demo_data/ISfwdGroupedByRoad.json");
-  var USHFWDData = loadJSON("/FWDUG_demo_data/USfwdGroupedByRoad.json");
+  var USHFWDData = loadJSON("https://artsy.ecn.purdue.edu/PatchingTables/USfwdGroupedByRoad.json");
 
   if (road === 'InterState-IRI' && parameterType==='IS-LIRI') {
     map.data.addGeoJson(psDataisleft);
