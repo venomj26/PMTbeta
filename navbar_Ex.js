@@ -543,7 +543,9 @@ function parameterSelectorMap(road, parameterType) {
   map=MapBase.obj;
 
 
-  var psDatais = loadJSON("/SampledRoadSchooldemoPatchingI69.json");
+  var psDataisleft = loadJSON("/FWDUG_demo_data/LIRIGroupedByRoadI4.json");
+  var psDataisright = loadJSON("/FWDUG_demo_data/RIRIGroupedByRoadI4.json");
+
   var psDataSR = loadJSON("/SampledRoadSchooldemoPatchingSR327image.json");
   var psDataUS = loadJSON('/SampledRoadSchooldemoPatchingUS421.json');
 
@@ -552,39 +554,45 @@ function parameterSelectorMap(road, parameterType) {
   var USHFWDData = loadJSON("/FWDUG_demo_data/USfwdGroupedByRoad.json");
 
   if (road === 'InterState-IRI' && parameterType==='IS-LIRI') {
-    map.data.addGeoJson(psDatais);
-    map.data.setStyle(function (feature) {
-      var LIRI = feature.getProperty('L_IRI');
-      // var RIRI = feature.getProperty('R_IRI');
+    map.data.addGeoJson(psDataisleft);
+    map.data.setStyle((feature) =>{
+ 
+      return{
+        strokeColor: colorToHexFWD[feature.getProperty('colorID')],
+        strokeOpacity: 0.8,
+        clickable: true,
+        strokeWeight: map.getZoom()+2,
 
-      var color = (LIRI > 500) ? 'blue' : (LIRI <= 500 && LIRI > 270)  ? "red" : (LIRI <= 270 && LIRI > 70) ? "yellow" : 'green';
-      return {
-        icon: iconIRI[`icon_${color}`],
-        scaledSize: new google.maps.Size(45, 45),
       };
+      
     });
-    map.setCenter(new google.maps.LatLng(41.061371, -85.238396));
-    map.setZoom(12);
-    addlegendRoadMarker(iconIRI)
+    map.setCenter(new google.maps.LatLng(39.7684, -85.1581));
+    map.setZoom(6);
     map.data.addListener('click', (event) => {
-      const DMI = event.feature.getProperty('DMI');
+      const DMI = event.feature.getProperty('RefDMI_road');
       //   const description = event.feature.getProperty('description');
-      const L_IRI = event.feature.getProperty('L_IRI') > 0.0 ? event.feature.getProperty('L_IRI') : "Data Unavailable";      const Road = event.feature.getProperty('Road');
+      const L_IRI = event.feature.getProperty('IRI_max') > 0.0 ? event.feature.getProperty('IRI_max') : "Data Unavailable";
+      const Road = event.feature.getProperty('Road');
       const Bound = event.feature.getProperty('Bound');
       const Lane = event.feature.getProperty('Lane');
-      const img3D = event.feature.getProperty('3DImg');
+      const RP = event.feature.getProperty('refpt');
+      // const img3D = event.feature.getProperty('3DImg');
+      const img2D = event.feature.getProperty('2DImg');
       const imgRow = event.feature.getProperty('rowImg');
-      const position = event.feature.getGeometry().get();
+      const position = event.latLng;
       const content = `
-      <div style="margin-left:20px; margin-bottom:20px;">
-        <h2> Road: ${Road} ${Bound} ${Lane} RP 300.74 to 307.16 </h2>
-        <h4>DMI: ${DMI}</h4>
-        <p><b>L_IRI(Th=270):</b> ${L_IRI}<br/></p>
-        <p><img style="float:center; width:550px; height:420px; margin-top:10px" src="${img3D}"></p>
-        <p><img style="float:center; width:550px; height:420px; margin-top:10px" src="${imgRow}"></p>
-        </div>
-      `;
-      console.log(content);
+    <div style="margin-left:20px; margin-bottom:20px;">
+      <h2> Road: ${Road} ${Bound} ${Lane} ${RP}  </h2>
+      <h4>DMI: ${DMI}</h4>
+      <p><b>LIRI:</b> ${L_IRI} inches/mile <br/>
+      <p><img style="float:center; width:550px; height:420px; margin-top:10px" src="${img2D}"></p>
+      <p><img style="float:center; width:550px; height:420px; margin-top:10px" src="${imgRow}"></p>
+
+      
+      
+      </div>
+    `;
+
       infoWindow.setContent(content);
       infoWindow.setPosition(position);
       infoWindow.setOptions({
@@ -592,42 +600,47 @@ function parameterSelectorMap(road, parameterType) {
       });
       infoWindow.open(map);
     });
-  } else if (road==='InterState-IRI' && parameterType==='IS-RIRI'){
-    map.data.addGeoJson(psDatais);
-    map.data.setStyle(function (feature) {
-      var RIRI = feature.getProperty('R_IRI');
-      // var RIRI = feature.getProperty('R_IRI');
-      console.log(iconIRI[`icon_${color}`]);
 
-      var color = (RIRI >= 1000) ? 'blue' : (RIRI < 1000 && RIRI >= 270) ? "red" : (RIRI < 270 && RIRI >= 70) ? "yellow" : 'green';
-      return {
-        icon: iconIRI[`icon_${color}`],
-        scaledSize: new google.maps.Size(45, 45),
+  } else if (road==='InterState-IRI' && parameterType==='IS-RIRI'){
+    map.data.addGeoJson(psDataisright);
+    map.data.setStyle((feature) =>{
+ 
+      return{
+        strokeColor: colorToHexFWD[feature.getProperty('colorID')],
+        strokeOpacity: 0.8,
+        clickable: true,
+        strokeWeight: map.getZoom()+2,
+
       };
+      
     });
-    map.setCenter(new google.maps.LatLng(41.061371, -85.238396));
-    map.setZoom(12);
-    console.log(road);
-    addlegendRoadMarker(iconIRI)
+    map.setCenter(new google.maps.LatLng(39.7684, -85.1581));
+    map.setZoom(6);
     map.data.addListener('click', (event) => {
-      const DMI = event.feature.getProperty('DMI');
+      const DMI = event.feature.getProperty('RefDMI_road');
       //   const description = event.feature.getProperty('description');
-      const R_IRI = event.feature.getProperty('R_IRI') > 0.0 ? event.feature.getProperty('R_IRI') : "Data Unavailable";
+      const R_IRI = event.feature.getProperty('IRI_max') > 0.0 ? event.feature.getProperty('IRI_max') : "Data Unavailable";
       const Road = event.feature.getProperty('Road');
       const Bound = event.feature.getProperty('Bound');
       const Lane = event.feature.getProperty('Lane');
-      const img3D = event.feature.getProperty('3DImg');
+      const RP = event.feature.getProperty('refpt');
+      // const img3D = event.feature.getProperty('3DImg');
+      const img2D = event.feature.getProperty('2DImg');
       const imgRow = event.feature.getProperty('rowImg');
-      const position = event.feature.getGeometry().get();
+      const position = event.latLng;
       const content = `
-      <div style="margin-left:20px; margin-bottom:20px;">
-        <h2> Road: ${Road} ${Bound} ${Lane} RP 300.74 to 307.16 </h2>
-        <h4>DMI: ${DMI}</h4>
-        <p><b>R_IRI(Th=270):</b> ${R_IRI}</p>
-        <p><img style="float:center; width:550px; height:420px; margin-top:10px" src="${img3D}"></p>
-        <p><img style="float:center; width:550px; height:420px; margin-top:10px" src="${imgRow}"></p>
-        </div>
-      `;
+    <div style="margin-left:20px; margin-bottom:20px;">
+      <h2> Road: ${Road} ${Bound} ${Lane} ${RP}  </h2>
+      <h4>DMI: ${DMI}</h4>
+      <p><b>RIRI:</b> ${R_IRI} inches/mile <br/>
+      <p><img style="float:center; width:550px; height:420px; margin-top:10px" src="${img2D}"></p>
+      <p><img style="float:center; width:550px; height:420px; margin-top:10px" src="${imgRow}"></p>
+
+      
+      
+      </div>
+    `;
+
       infoWindow.setContent(content);
       infoWindow.setPosition(position);
       infoWindow.setOptions({
@@ -752,10 +765,7 @@ function parameterSelectorMap(road, parameterType) {
       // const patching = (BCI >= 3 || D48 >= 1.8) ? 'Full depth Patch' : (SCI >= 6 || BDI >= 4.5 || D0 >= 24.6) ? 'Surface Patch' : 'Good Condition';
 
       const Road = event.feature.getProperty('Road');
-      // const Bound = event.feature.getProperty('Bound');
-      // const Lane = event.feature.getProperty('Lane');
-      // const img3D = event.feature.getProperty('3DImg');
-      // const imgRow = event.feature.getProperty('rowImg');
+
       const position = event.feature.getGeometry().get();
       const content = `
       <div style="margin-left:20px; margin-bottom:20px;">
@@ -841,8 +851,7 @@ function parameterSelectorMap(road, parameterType) {
     // });
     map.data.addGeoJson(ISFWDData);
 
-    map.setCenter(new google.maps.LatLng(39.7684, -85.1581));
-    map.setZoom(6);
+    
     map.data.setStyle((feature) =>{
  
       return{
@@ -854,7 +863,8 @@ function parameterSelectorMap(road, parameterType) {
       };
       
     });
-
+    map.setCenter(new google.maps.LatLng(39.7684, -85.1581));
+    map.setZoom(6);
     map.data.addListener('click', (event) => {
       console.log("in the  listener");
       const featureID = event.feature.getProperty('ID');
@@ -1591,7 +1601,7 @@ function thresholdSelectorMap(road) {
       // let road = $(this).parent()
       let road = 'InterState-IRI';
       parameterSelectorMap(road, parameterType);
-      alert(parameterType);
+      alert(road,parameterType);
       $('.side-bar').removeClass('active');
       $('.menu-btn').css('visibility', 'visible');
     });
@@ -1613,7 +1623,7 @@ function thresholdSelectorMap(road) {
       let parameterType = $(this).attr('class');
       let road = 'InterState-FWD';
       parameterSelectorMap(road, parameterType);
-      alert(parameterType);
+      alert(road,parameterType);
       $('.side-bar').removeClass('active');
       $('.menu-btn').css('visibility', 'visible');
     });
@@ -1621,7 +1631,7 @@ function thresholdSelectorMap(road) {
       let parameterType = $(this).attr('class');
       let road = 'State-FWD';
       parameterSelectorMap(road,parameterType);
-      alert(parameterType);
+      alert(road, parameterType);
       $('.side-bar').removeClass('active');
       $('.menu-btn').css('visibility', 'visible');
     });
@@ -1629,10 +1639,9 @@ function thresholdSelectorMap(road) {
       let parameterType = $(this).attr('class');
       let road = 'USH-FWD';
       parameterSelectorMap(road,parameterType);
-      alert(parameterType);
+      alert(road, parameterType);
       $('.side-bar').removeClass('active');
       $('.menu-btn').css('visibility', 'visible');
-
     });
     $('.InterState-TSD').click(function () {
       let parameterType = $(this).attr('class');
